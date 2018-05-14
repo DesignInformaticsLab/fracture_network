@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.io as sio
 import matplotlib.pyplot as plt
-
+import tensorflow as tf
 
 def Initialization(index_fil):
     delta = (Box[0, 1] - Box[0, 0]) / particles_per_row

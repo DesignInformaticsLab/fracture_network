@@ -258,6 +258,7 @@ def Netinteraction(Positions, neighbors, nsign, dL, dL_total, TdL_total, Kn, Tv)
     return netF
 
 
+
 #### MAIN ####
 rho = np.float32(4.43e3)
 PI = np.float32(3.1415926)
@@ -300,9 +301,9 @@ for index_fil in range(1, 2):
                                                                            TdL_total, neighbors, nsign, NB, bondsign,
                                                                            Stretch, Kn, Tv, netF, Lvel, Lacc, Positions)
 
-    t_end = 1.0
     t_start = 0.
     t_step = 1e-9
+    t_end = t_step
     steps = np.round((t_end - t_start) / t_step)
 
     # main integration part
@@ -355,8 +356,8 @@ for index_fil in range(1, 2):
         if np.sum(bondsign) != bondsign_last_Total_value:
             print('bond status change, former=', bondsign_last_Total_value)
             print('bond status change, now=', np.sum(bondsign))
-            sio.savemat('status/WB_{}/Lvel_{}.mat'.format(index_fil, index_status), {'Lvel': Lvel})
-            sio.savemat('status/WB_{}/Bforce_{}.mat'.format(index_fil, index_status), {'Bforce': Bforce[t]})
+            sio.savemat('./status/WB_{}/Lvel_{}.mat'.format(index_fil, index_status), {'Lvel': Lvel})
+            sio.savemat('./status/WB_{}/Bforce_{}.mat'.format(index_fil, index_status), {'Bforce': Bforce[t]})
             index_status = index_status + 1
             bondsign_last_Total_value = np.sum(bondsign)
 
@@ -378,10 +379,10 @@ for index_fil in range(1, 2):
             damage = Phase01[i]
 
         crack.append(damage)
-    sio.savemat('status/Wb_{}/crack_{}.mat'.format(index_fil, index_fil), {'crack': crack})
+    sio.savemat('./status/Wb_{}/crack_{}.mat'.format(index_fil, index_fil), {'crack': crack})
 
     # save Bforce
-    sio.savemat('status/WB_{}/Bforce_total_{}.mat'.format(index_fil, index_fil), {'Bforce': Bforce})
+    sio.savemat('./status/WB_{}/Bforce_total_{}.mat'.format(index_fil, index_fil), {'Bforce': Bforce})
 
     print('complished filter number =', index_fil)
 
