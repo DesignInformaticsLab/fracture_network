@@ -4,15 +4,15 @@ import numpy as np
 def neighbor_shift(x):
     x = tf.expand_dims(x, 2)
     x_neigbor = tf.concat([
-        tf.pad(x[1:, :, :], ((1, 0), (0, 0), (0, 0))),
-        tf.pad(x[:-1, :, :], ((0, 1), (0, 0), (0, 0))),
-        tf.pad(x[:, 1:, :], ((0, 0), (1, 0), (0, 0))),
-        tf.pad(x[:, :-1, :], ((0, 0), (0, 1), (0, 0))),
+        tf.pad(x[1:, :, :], ((0, 1), (0, 0), (0, 0))), #below
+        tf.pad(x[:-1, :, :], ((1, 0), (0, 0), (0, 0))), # above
+        tf.pad(x[:, 1:, :], ((0, 0), (0, 1), (0, 0))), # right
+        tf.pad(x[:, :-1, :], ((0, 0), (1, 0), (0, 0))), # left
 
-        tf.pad(x[1:, 1:, :], ((1, 0), (1, 0), (0, 0))),
-        tf.pad(x[1:, :-1, :], ((1, 0), (0, 1), (0, 0))),
-        tf.pad(x[:-1, 1:, :], ((0, 1), (1, 0), (0, 0))),
-        tf.pad(x[:-1, :-1, :], ((0, 1), (0, 1), (0, 0)))
+        tf.pad(x[1:, 1:, :], ((0, 1), (0, 1), (0, 0))), # bottom right
+        tf.pad(x[1:, :-1, :], ((0, 1), (1, 0), (0, 0))), # bottom left
+        tf.pad(x[:-1, 1:, :], ((1, 0), (0, 1), (0, 0))), # upper right
+        tf.pad(x[:-1, :-1, :], ((1, 0), (1, 0), (0, 0))) # upper left
     ],2)
     return x_neigbor
 
@@ -23,17 +23,17 @@ def get_Tv_Kn():
     return Tv,Kn
 
 def get_distance(Positions_orig):
-    dx_y = tf.concat([
-    tf.expand_dims(tf.pad(Positions_orig[1:] - Positions_orig[:-1], ((1, 0), (0, 0), (0, 0))), 0), #above
-    tf.expand_dims(tf.pad(Positions_orig[:-1] - Positions_orig[1:], ((0, 1), (0, 0), (0, 0))), 0), #below
+    dx_y = tf.abs(tf.concat([
+    tf.expand_dims(tf.pad(Positions_orig[1:, :] - Positions_orig[:-1, :], ((1, 0), (0, 0), (0, 0))), 0), #above
+    tf.expand_dims(tf.pad(Positions_orig[:-1, :] - Positions_orig[1:, :], ((0, 1), (0, 0), (0, 0))), 0), #below
     tf.expand_dims(tf.pad(Positions_orig[:,1:] - Positions_orig[:,:-1], ((0, 0), (1, 0), (0, 0))), 0), #left
     tf.expand_dims(tf.pad(Positions_orig[:,:-1] - Positions_orig[:,1:], ((0, 0), (0, 1), (0, 0))), 0), #right
 
     tf.expand_dims(tf.pad(Positions_orig[1:,1:] - Positions_orig[:-1,:-1], ((1, 0), (1, 0), (0, 0))), 0), #upper left
+    tf.expand_dims(tf.pad(Positions_orig[:-1,:-1] - Positions_orig[1:,1:], ((0, 1), (0, 1), (0, 0))), 0), #lower right
     tf.expand_dims(tf.pad(Positions_orig[1:,:-1] - Positions_orig[:-1,1:], ((1, 0), (0, 1), (0, 0))), 0), #upper right
     tf.expand_dims(tf.pad(Positions_orig[:-1,1:] - Positions_orig[1:,:-1], ((0, 1), (1, 0), (0, 0))), 0), #lower left
-    tf.expand_dims(tf.pad(Positions_orig[:-1,:-1] - Positions_orig[1:,1:], ((0, 1), (0, 1), (0, 0))), 0), #lower right
-    ],0)  # 8x10x10x2, only four of them are unique
+    ],0))  # 8x10x10x2, only four of them are unique
     dx, dy = tf.transpose(dx_y[:,:,:,0],(1,2,0)), tf.transpose(dx_y[:,:,:,1],(1,2,0))
     dxy = tf.concat([tf.expand_dims(dx,3), tf.expand_dims(dy,3)], 3)
     distance = tf.sqrt(dx**2 + dx**2)#10x10x8
