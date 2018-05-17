@@ -36,7 +36,7 @@ def get_distance(Positions_orig):
     ],0))  # 8x10x10x2, only four of them are unique
     dx, dy = tf.transpose(dx_y[:,:,:,0],(1,2,0)), tf.transpose(dx_y[:,:,:,1],(1,2,0))
     dxy = tf.concat([tf.expand_dims(dx,3), tf.expand_dims(dy,3)], 3)
-    distance = tf.sqrt(dx**2 + dx**2)#10x10x8
+    distance = tf.sqrt(dx**2 + dy**2)#10x10x8
     return dxy, distance
 
 def f2x(distance_new, distance_orig, strech, bondsign, Tv):
@@ -66,7 +66,7 @@ def x2f(Kn, dL, dL_total, Tv, TdL_total, distance, dxy, bondsign):
 
     return netF
 
-def apply_bc( Lvel, Lacc):
+def apply_bc(Lvel, Lacc):
     # clip&padding to enforce boundary condition
     Lvel_left_x = -0.
     Lvel_left_y = 0.
