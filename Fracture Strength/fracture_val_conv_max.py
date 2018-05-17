@@ -39,57 +39,58 @@ def neighbor_shift(x): #this is specific for 3D
 
 def get_const_tensors(scale, dim):
     # 10x10x10x18 for now, should be able to reduce locally
-    dis=tf.constant(0.01/scale)
-    rho = tf.constant(4.43e2)
-    sigY = tf.constant(2e5)
-    E0 = tf.constant(1e7)
-    mu0 = tf.constant(0.3)
-    E1 = tf.constant(1e7)
-    mu1 = tf.constant(0.3)
-    E2 = tf.constant(1e8)
-    mu2 = tf.constant(0.3)
-    Kn01 = tf.constant(2.0*E0/((1.0 + mu0)))
-    Kn02 = tf.constant(2.0*E0/((1.0 + mu0)))
-    Tv0 = tf.constant(E0*(4.0*mu0 - 1.0)/((9+4*tf.sqrt(2))*(1.0 + mu0)*(1.0 - 2.0*mu0)))
-    Kn11 = tf.constant(2.0*E1/((1.0 + mu1)))
-    Kn12 = tf.constant(2.0*E1/((1.0 + mu1)))
-    Tv1 = tf.constant(E1*(4.0*mu1 - 1.0)/((9+4*tf.sqrt(2))*(1.0 + mu1)*(1.0 - 2.0*mu1)))
-    Kn21 = tf.constant(2.0*E2/((1.0 + mu2)))
-    Kn22 = tf.constant(2.0*E2/((1.0 + mu2)))
-    Tv2 = tf.constant(E2*(4.0*mu2 - 1.0)/((9+4*tf.sqrt(2))*(1.0 + mu2)*(1.0 - 2.0*mu2)))
+    dis= 0.01/scale
+    rho = 4.43e2
+    sigY = 2e5
+    E0 = 1e7
+    mu0 = 0.3
+    E1 = 1e7
+    mu1 = 0.3
+    E2 = 1e8
+    mu2 = 0.3
+    Kn01 = 2.0*E0/(1.0 + mu0)
+    Kn02 = 2.0*E0/(1.0 + mu0)
+    Tv0 = E0*(4.0*mu0 - 1.0)/((9+4*np.sqrt(2))*(1.0 + mu0)*(1.0 - 2.0*mu0))
+    Kn11 = 2.0*E1/(1.0 + mu1)
+    Kn12 = 2.0*E1/(1.0 + mu1)
+    Tv1 = E1*(4.0*mu1 - 1.0)/((9+4*np.sqrt(2))*(1.0 + mu1)*(1.0 - 2.0*mu1))
+    Kn21 = 2.0*E2/(1.0 + mu2)
+    Kn22 = 2.0*E2/(1.0 + mu2)
+    Tv2 = E2*(4.0*mu2 - 1.0)/((9+4*np.sqrt(2))*(1.0 + mu2)*(1.0 - 2.0*mu2))
 
-    Tv_top = tf.ones((scale,scale,scale/2,18))*Tv0
-    Tv_bottom = tf.ones((scale,scale,scale/2,18))*Tv0
+    half_scale = int(scale/2)
+    Tv_top = np.ones((scale,scale,half_scale,18))*Tv0
+    Tv_bottom = np.ones((scale,scale,half_scale,18))*Tv0
 
-    Kn_top = tf.concat([tf.ones((scale,scale,scale/2,6))*Kn01,tf.ones((scale,scale,scale/2,12))*Kn02],3)
-    Kn_bottom = tf.concat([tf.ones((scale,scale,scale/2,6))*Kn01,tf.ones((scale,scale,scale/2,12))*Kn02],3)
+    Kn_top = np.concatenate((np.ones((scale,scale,half_scale,6))*Kn01,np.ones((scale,scale,half_scale,12))*Kn02),3)
+    Kn_bottom = np.concatenate((np.ones((scale,scale,half_scale,6))*Kn01,np.ones((scale,scale,half_scale,12))*Kn02),3)
 
-    stretch_top = tf.concat([tf.ones((scale,scale,scale/2,6))*(120*sigY/(2.0*Kn01) + 1.0)*dis,
-                             tf.ones((scale,scale,scale/2,12))*(120*sigY/(2.0*Kn01) + 1.0*tf.sqrt(2.0))*dis],3)
+    stretch_top = np.concatenate((np.ones((scale,scale,half_scale,6))*(120*sigY/(2.0*Kn01) + 1.0)*dis,
+                             np.ones((scale,scale,half_scale,12))*(120*sigY/(2.0*Kn01) + 1.0*np.sqrt(2.0))*dis),3)
 
-    stretch_bottom = tf.concat([tf.ones((scale,scale,scale/2,6))*(120*sigY/(2.0*Kn01) + 1.0)*dis,
-                             tf.ones((scale,scale,scale/2,12))*(120*sigY/(2.0*Kn01) + 1.0*tf.sqrt(2.0))*dis],3)
+    stretch_bottom = np.concatenate((np.ones((scale,scale,half_scale,6))*(120*sigY/(2.0*Kn01) + 1.0)*dis,
+                             np.ones((scale,scale,half_scale,12))*(120*sigY/(2.0*Kn01) + 1.0*np.sqrt(2.0))*dis),3)
 
     # model the interface
     connection_index_top = (4,10,12,14,16)
     connection_index_bottom = (5,11,13,15,17)
-    Tv_top[:,:,-1,connection_index_top] = tf.constant(2*(Tv0*Tv1/(Tv0+Tv1))) # -1 is the last square in height (the interface from the top
+    Tv_top[:,:,-1,connection_index_top] = 2*(Tv0*Tv1/(Tv0+Tv1)) # -1 is the last square in height (the interface from the top
     # piece), 4 is the link to the back (bottom) (see neighbor_shift)
-    Tv_bottom[:,:,0,connection_index_bottom] = tf.constant(2*(Tv0*Tv1/(Tv0+Tv1))) # 0 is the first square in height (the interface from the bottom
+    Tv_bottom[:,:,0,connection_index_bottom] = 2*(Tv0*Tv1/(Tv0+Tv1)) # 0 is the first square in height (the interface from the bottom
     # piece), 5 is the link to the front (top) (see neighbor_shift)
-    Kn_top[:,:,-1,4] = tf.constant(2.0*(Kn01*Kn11/(Kn01+Kn11)))
-    Kn_top[:,:,-1,(10,12,14,16)] = tf.constant(2.0*(Kn02*Kn12/(Kn02+Kn12)))
-    Kn_bottom[:,:,-1,5] = tf.constant(2.0*(Kn01*Kn11/(Kn01+Kn11)))
-    Kn_bottom[:,:,-1,(11,13,15,17)] = tf.constant(2.0*(Kn02*Kn12/(Kn02+Kn12)))
-    stretch_top[:,:,-1,4] = tf.constant((60*sigY/(4.0*(Kn01*Kn11/(Kn01+Kn11))) + 1.0)*dis)
-    stretch_top[:,:,-1,(10,12,14,16)] = tf.constant((60*sigY/(4.0*(Kn01*Kn11/(Kn01+Kn11))) + tf.sqrt(2.0))*dis)
-    stretch_bottom[:,:,-1,5] = tf.constant((60*sigY/(4.0*(Kn01*Kn11/(Kn01+Kn11))) + 1.0)*dis)
-    stretch_bottom[:,:,-1,(11,13,15,17)] = tf.constant((60*sigY/(4.0*(Kn01*Kn11/(Kn01+Kn11))) + tf.sqrt(2.0))*dis)
+    Kn_top[:,:,-1,4] = 2.0*(Kn01*Kn11/(Kn01+Kn11))
+    Kn_top[:,:,-1,(10,12,14,16)] = 2.0*(Kn02*Kn12/(Kn02+Kn12))
+    Kn_bottom[:,:,-1,5] = 2.0*(Kn01*Kn11/(Kn01+Kn11))
+    Kn_bottom[:,:,-1,(11,13,15,17)] = 2.0*(Kn02*Kn12/(Kn02+Kn12))
+    stretch_top[:,:,-1,4] = (60*sigY/(4.0*(Kn01*Kn11/(Kn01+Kn11))) + 1.0)*dis
+    stretch_top[:,:,-1,(10,12,14,16)] = (60*sigY/(4.0*(Kn01*Kn11/(Kn01+Kn11))) + np.sqrt(2.0))*dis
+    stretch_bottom[:,:,-1,5] = (60*sigY/(4.0*(Kn01*Kn11/(Kn01+Kn11))) + 1.0)*dis
+    stretch_bottom[:,:,-1,(11,13,15,17)] = (60*sigY/(4.0*(Kn01*Kn11/(Kn01+Kn11))) + np.sqrt(2.0))*dis
 
     # assemble
-    Tv = tf.concat([Tv_top, Tv_bottom], 2)
-    Kn = tf.concat([Kn_top, Kn_bottom], 2)
-    stretch = tf.concat([stretch_top, stretch_bottom], 2)
+    Tv = tf.convert_to_tensor(np.concatenate((Tv_top, Tv_bottom), 2), dtype=tf.float32)
+    Kn = tf.convert_to_tensor(np.concatenate((Kn_top, Kn_bottom), 2), dtype=tf.float32)
+    stretch = tf.convert_to_tensor(np.concatenate((stretch_top, stretch_bottom), 2), dtype=tf.float32)
 
     return Tv, Kn, stretch
 
@@ -132,9 +133,9 @@ def get_distance(Positions_orig):
     distance = tf.sqrt(dx**2 + dy**2 + dz**2)#10x10x10x18
     return dxyz, distance
 
-def f2x(distance_new, distance_orig, strech, bondsign, Tv):
+def f2x(distance_new, distance_orig, stretch, bondsign, Tv):
 
-    sig1 = tf.sigmoid(strech - distance_new)  # 10x10x10x18, sig=0 means crack
+    sig1 = tf.sigmoid(stretch - distance_new)  # 10x10x10x18, sig=0 means crack
     distance_inc = distance_new - distance_orig
     dL = distance_inc * sig1 * bondsign  # 10x10x10x18
     dL += (1 - bondsign) * (tf.sigmoid(-distance_inc)) * distance_inc
@@ -211,7 +212,7 @@ if __name__ == '__main__':
         Positions_new = Positions_old + Lvel * t_step + Lacc * t_step ** 2 / 2.  # 10x10x10x3
         dxy_new, distance_new = get_distance(Positions_new)
 
-        dL, dL_total, TdL_total = f2x(distance_new, distance_orig, strech, bondsign, Tv)
+        dL, dL_total, TdL_total = f2x(distance_new, distance_orig, stretch, bondsign, Tv)
 
         netF, netF_top = x2f(Kn, dL, dL_total, Tv, TdL_total, distance_new, dxy_new, bondsign)
 
@@ -220,6 +221,6 @@ if __name__ == '__main__':
         Lvel, Lacc = apply_bc(Lvel, Lacc, scale)
 
         # pos_his += [Positions_new]
-        print('net force = %f', netF_top)
+        print('done')
 
-    tf.gradients(netF, Positions)
+    # tf.gradients(netF, Positions)

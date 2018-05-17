@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="96919aee-fcc7-49ef-9052-54204df6e318" name="Default" comment="initial on fracture_val_conv_max&#10;this is 3D following Yang's new code">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Fracture Strength/cell.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/fracture_network.iml" afterPath="$PROJECT_DIR$/.idea/fracture_network.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Fracture Strength/fracture_val_conv.py" afterPath="$PROJECT_DIR$/Fracture Strength/fracture_val_conv.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="96919aee-fcc7-49ef-9052-54204df6e318" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py" afterPath="$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -62,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fracture_val_conv_max.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="fracture_val_conv_max.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.678261">
-              <caret line="194" column="32" selection-start-line="194" selection-start-column="32" selection-end-line="194" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.41614124">
+              <caret line="146" column="51" selection-start-line="146" selection-start-column="51" selection-end-line="146" selection-end-column="51" />
               <folding>
                 <element signature="e#136#159#0" expanded="true" />
               </folding>
@@ -75,20 +71,10 @@
         </entry>
       </file>
       <file leaf-file-name="cell.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Downloads/crack_pure_phase/perfect/cell.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="387" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="985" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cell.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Fracture Strength/cell.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17161961">
-              <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="842" column="1" selection-start-line="842" selection-start-column="1" selection-end-line="842" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -126,8 +112,8 @@
         <option value="$PROJECT_DIR$/Fracture Strength/fracture_val_tf.py" />
         <option value="$PROJECT_DIR$/Fracture Strength/fracture_val.py" />
         <option value="$PROJECT_DIR$/Fracture Strength/fracture_val_conv.py" />
-        <option value="$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py" />
         <option value="$PROJECT_DIR$/Fracture Strength/cell.cpp" />
+        <option value="$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py" />
       </list>
     </option>
   </component>
@@ -549,6 +535,13 @@
       <option name="number" value="Default" />
       <updated>1525714173806</updated>
     </task>
+    <task id="LOCAL-00001" summary="initial on fracture_val_conv_max&#10;this is 3D following Yang's new code in cell.cpp">
+      <created>1526596787430</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1526596787430</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -557,11 +550,12 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08817702" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14892086" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2503597" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3151079" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3151079" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17872712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -631,6 +625,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial on fracture_val_conv_max&#10;this is 3D following Yang's new code in cell.cpp" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial on fracture_val_conv_max&#10;this is 3D following Yang's new code in cell.cpp" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -706,19 +704,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py</url>
-          <line>110</line>
+          <line>111</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py</url>
-          <line>151</line>
+          <line>152</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="38" />
+      <option name="time" value="39" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -919,16 +917,6 @@ tf.concat([tf.ones(10,1,1)*Lacc_left, Lacc[:,1:-1,:], tf.ones(10,1,1)*Lacc_right
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.678261">
-          <caret line="194" column="32" selection-start-line="194" selection-start-column="32" selection-end-line="194" selection-end-column="32" />
-          <folding>
-            <element signature="e#136#159#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/crack_pure_phase/perfect/cell.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -939,9 +927,19 @@ tf.concat([tf.ones(10,1,1)*Lacc_left, Lacc[:,1:-1,:], tf.ones(10,1,1)*Lacc_right
     </entry>
     <entry file="file://$PROJECT_DIR$/Fracture Strength/cell.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17161961">
-          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="842" column="1" selection-start-line="842" selection-start-column="1" selection-end-line="842" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41614124">
+          <caret line="146" column="51" selection-start-line="146" selection-start-column="51" selection-end-line="146" selection-end-column="51" />
+          <folding>
+            <element signature="e#136#159#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
