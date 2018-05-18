@@ -192,8 +192,14 @@ if __name__ == '__main__':
     t_step = 0.01  # time steps of the simulation
     steps = 10  # number of steps for simulation
     Mass = 1.
+    len = 0.01 # physical size of the problem
 
-    Positions = tf.placeholder(tf.float32, (scale, scale, scale, ndim)) # position x
+    # Positions = tf.placeholder(tf.float32, (scale, scale, scale, ndim)) # position x
+    grid = np.linspace(0, len, scale)
+    Positions = tf.convert_to_tensor(
+        np.asarray([[grid[i], grid[j], grid[k]] for i in range(scale) for j in range(scale) for k in range(scale)]
+                   ).reshape(scale, scale, scale, ndim), dtype=tf.float32)
+
     Lvel = tf.placeholder(tf.float32, (scale, scale, scale, ndim)) # velocity \dot x
     Lacc = tf.placeholder(tf.float32, (scale, scale, scale, ndim)) # accelration \dot \dot x
     # stretch = tf.placeholder(tf.float32, (scale, scale, scale, 3**ndim-9)) # threshold on displacement before crack
@@ -224,3 +230,5 @@ if __name__ == '__main__':
         print('done')
 
     # tf.gradients(netF, Positions)
+
+
