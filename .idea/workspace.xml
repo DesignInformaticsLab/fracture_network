@@ -61,8 +61,8 @@
       <file leaf-file-name="fracture_val_conv_max.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47265625">
-              <caret line="260" column="56" selection-start-line="260" selection-start-column="56" selection-end-line="260" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.8580858">
+              <caret line="368" column="31" selection-start-line="368" selection-start-column="31" selection-end-line="368" selection-end-column="31" />
               <folding>
                 <element signature="e#136#159#0" expanded="true" />
               </folding>
@@ -557,7 +557,13 @@
       <option name="project" value="LOCAL" />
       <updated>1526598577234</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="updated 3d code with material assignment in tf">
+      <created>1526681876372</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1526681876372</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -571,7 +577,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18078603" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2503597" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19039302" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33187774" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17872712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -644,7 +650,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial on fracture_val_conv_max&#10;this is 3D following Yang's new code in cell.cpp" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial on fracture_val_conv_max&#10;this is 3D following Yang's new code in cell.cpp" />
+    <MESSAGE value="updated 3d code with material assignment in tf" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated 3d code with material assignment in tf" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -720,23 +727,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py</url>
-          <line>243</line>
+          <line>259</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py</url>
-          <line>284</line>
+          <line>300</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py</url>
-          <line>139</line>
+          <line>142</line>
           <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py</url>
-          <line>224</line>
-          <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -961,8 +963,8 @@ tf.concat([tf.ones(10,1,1)*Lacc_left, Lacc[:,1:-1,:], tf.ones(10,1,1)*Lacc_right
     </entry>
     <entry file="file://$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47265625">
-          <caret line="260" column="56" selection-start-line="260" selection-start-column="56" selection-end-line="260" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.8580858">
+          <caret line="368" column="31" selection-start-line="368" selection-start-column="31" selection-end-line="368" selection-end-column="31" />
           <folding>
             <element signature="e#136#159#0" expanded="true" />
           </folding>

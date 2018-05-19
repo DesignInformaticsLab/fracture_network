@@ -92,17 +92,17 @@ def get_const_tensors(scale, dim, defect):
     S02 = (120*sigY/(2.0*Kn01) + 1.0*tf.sqrt(2.0))*dis  # stretch threshold for far neighbours, same material
     #TODO: should stretch thresholds be different for close or far neighbours?
 
-    Kn11 = 2.0*E1/(1.0 + mu1)  # Kn for close neighbours, interface
-    Kn12 = 2.0*E1/(1.0 + mu1)  # Kn for far neighbours, interface
-    Tv1 = E1*(4.0*mu1 - 1.0)/((9+4*np.sqrt(2))*(1.0 + mu1)*(1.0 - 2.0*mu1))  # Tv on the interface
-    S11 = (60*sigY/(2.0*Kn01) + 1.0)*dis  # stretch threshold for close neighbours on the interface
-    S12 = (60*sigY/(2.0*Kn01) + 1.0)*dis  # stretch threshold for far neighbours on the interface
+    Kn11 = 1e6  # Kn for close neighbours, interface
+    Kn12 = 1e6  # Kn for far neighbours, interface
+    Tv1 = 1e6  # Tv on the interface
+    S11 = 0.000105  # stretch threshold for close neighbours on the interface
+    S12 = 0.000149  # stretch threshold for far neighbours on the interface
 
-    Kn21 = 2.0*E2/(1.0 + mu2)  # connected to defect
-    Kn22 = 2.0*E2/(1.0 + mu2)  # connected to defect
-    Tv2 = E2*(4.0*mu2 - 1.0)/((9+4*np.sqrt(2))*(1.0 + mu2)*(1.0 - 2.0*mu2))  # connected to defect
-    S21 = 0.001  # connected to defect
-    S22 = 0.001  # connected to defect
+    Kn21 = 0  # connected to defect
+    Kn22 = 0  # connected to defect
+    Tv2 = 0  # connected to defect
+    S21 = 0  # connected to defect
+    S22 = 0  # connected to defect
 
     # fixed parts include upper piece without the two layers close to the interface and the lower piece without the one
     # layer at the interface
@@ -126,6 +126,9 @@ def get_const_tensors(scale, dim, defect):
     # the bottom piece with out the first layer
     stretch_bottom = tf.concat([tf.ones((scale,scale,half_scale-1,6))*S01,  # 6 close neighbours
                                tf.ones((scale,scale,half_scale-1,12))*S02],3)  # 12 far neighbours
+
+    bondsign_top = tf.ones((scale,scale,half_scale-2,18))
+    bondsign_bottom = tf.ones((scale,scale,half_scale-1,18))
 
     # for the second last layer of the upper piece, we will check whether particles are linked to defects on the last
     # layer of the upper piece, thus we need all indices for the bottom links (total 5)
@@ -156,6 +159,10 @@ def get_const_tensors(scale, dim, defect):
                                           tf.ones((scale,scale,1,4))*S22],3)*(1-shifted_defect_top_2),
                            location=connection_index_bottom)
 
+    bondsign_top_2 = insert(tensor_target=tf.ones((scale,scale,1,13)),  # all 13 locations other than the 5 at the bottom
+                            tensor_slice=tf.ones((scale,scale,1,5))*shifted_defect_top_2,  # no defect
+                            location=connection_index_bottom)  # locations where the bottom 5 should be inserted
+
     # upper piece surface layer
     # for the last layer of the upper piece, we need to look around since the defects are right in this layer
     connection_index_around = (0,1,2,3)  # all 8 neighbours around
@@ -182,6 +189,11 @@ def get_const_tensors(scale, dim, defect):
                                                    tf.ones((scale,scale,1,4))*S12*defect],3),
                            location=connection_index_bottom)
 
+    bondsign_top_1 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,8))*shifted_defect_top_1*defect,   # 8 neighbours around
+                                               tf.ones((scale,scale,1,5))*defect],3),  # 5 neighbours on top
+                      tensor_slice=tf.ones((scale,scale,1,5))*defect,  # 5 neighbours at bottom, all interface
+                      location=connection_index_bottom)
+
     # lower piece surface layer
     Tv_bottom_1 = insert(tensor_target=tf.ones((scale,scale,1,13))*Tv0,  # 13 neighbours except the ones on top
                          tensor_slice=tf.ones((scale,scale,1,5))*Tv1*shifted_defect_top_2 +  # 5 neighbours on top
@@ -201,6 +213,10 @@ def get_const_tensors(scale, dim, defect):
                                            tf.concat([tf.ones((scale,scale,1,1))*S21,
                                                       tf.ones((scale,scale,1,4))*S22],3)*(1-shifted_defect_top_2),
                               location=connection_index_top)
+    bondsign_bottom_1 = insert(tensor_target=tf.ones((scale,scale,1,13)),  # 13 neighbours except the ones on top
+                               tensor_slice=tf.ones((scale,scale,1,5))*shifted_defect_top_2,  # 5 neighbours on top
+                               location=connection_index_top)
+
 
     # # model the interface
     # Tv_top[:,:,-1,connection_index_top] = 2*(Tv0*Tv1/(Tv0+Tv1)) # -1 is the last square in height (the interface from the top
@@ -223,8 +239,8 @@ def get_const_tensors(scale, dim, defect):
     Tv = tf.concat([Tv_top, Tv_top_2, Tv_top_1, Tv_bottom_1, Tv_bottom], 2)
     Kn = tf.concat([Kn_top, Kn_top_2, Kn_top_1, Kn_bottom_1, Kn_bottom], 2)
     stretch = tf.concat([stretch_top, stretch_top_2, stretch_top_1, stretch_bottom_1, stretch_bottom], 2)
-
-    return Tv, Kn, stretch
+    bondsign = tf.concat([bondsign_top, bondsign_top_2, bondsign_top_1, bondsign_bottom_1, bondsign_bottom], 2)
+    return Tv, Kn, stretch, bondsign
 
 def get_distance(Positions_orig):
     dx_y_z = tf.abs(tf.concat([
@@ -340,9 +356,9 @@ if __name__ == '__main__':
     Lvel = tf.placeholder(tf.float32, (scale, scale, scale, ndim))  # velocity \dot x
     Lacc = tf.placeholder(tf.float32, (scale, scale, scale, ndim))  # accelration \dot \dot x
     # stretch = tf.placeholder(tf.float32, (scale, scale, scale, 3**ndim-9))  # threshold on displacement before crack
-    bondsign = tf.placeholder(tf.float32, (scale, scale, scale, 3**ndim-9))  # inital crack
+    # bondsign = tf.placeholder(tf.float32, (scale, scale, scale, 3**ndim-9))  # inital crack
 
-    Tv, Kn, stretch = get_const_tensors(scale=scale, dim=ndim, defect=Defects)
+    Tv, Kn, stretch, bondsign = get_const_tensors(scale=scale, dim=ndim, defect=Defects)
     dxy_orig, distance_orig = get_distance(Positions)
     distance_old = distance_orig
     bondsign_old = bondsign
