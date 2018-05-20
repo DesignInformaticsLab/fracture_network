@@ -283,29 +283,8 @@ def get_distance(Positions_orig):
     distance = tf.sqrt(dx**2 + dy**2 + dz**2)#10x10x10x18
     return dxyz, distance
 
-def f2x(distance_new, distance_orig, stretch, bondsign, Tv):
-
-    sig1 = tf.sigmoid(stretch - distance_new)  # 10x10x10x18, sig=0 means crack
-    distance_inc = distance_new - distance_orig
-    flag_phase = tf.zeros((10,10,10,18))
-    dL = bondsign * flag_phase * sig1 * distance_inc # 10x10x10x18
-    bondsign_new = bondsign  * flag_phase * (1-sig1) * bondsign
-    dL += bondsign * (1-flag_phase) * distance_inc # 10x10x10x18
-    dL += (1 - bondsign) * (tf.sigmoid(-distance_inc)) * distance_inc
-    # dL_total = tf.concat([tf.expand_dims(tf.reduce_sum(dL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(dL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
-    dL_total = tf.reduce_sum(dL, 3)  # 10x10x10x1
-    TdL = dL * Tv
-    # TdL_total = tf.concat([tf.expand_dims(tf.reduce_sum(TdL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(TdL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
-    TdL_total = tf.reduce_sum(TdL, 3)  # 10x10x10x1
-
-    return dL, dL_total, TdL_total, bondsign_new
-
-def x2f(Kn, dL, dL_total, Tv, TdL_total, distance, dxyz, bondsign):
-    part1 = tf.tile(tf.expand_dims(2. * Kn * dL, 4), (1,1,1,1,3))  # 10x10x10x18x3
-    part2 = 0.5 * tf.tile(tf.expand_dims(Tv * (tf.expand_dims(dL_total,3) + neighbor_shift(dL_total)), 4), (1,1,1,1,3))   # 10x10x10x18x3
-    part3 = 0.5 * tf.tile(tf.expand_dims(tf.expand_dims(TdL_total,3) + neighbor_shift(TdL_total), 4), (1,1,1,1,3)) # 10x10x10x18x3
-    # dxyz: 10x10x10x18x3, distance: 10x10x10x18
-    f = (part1 + part2 + part3) * dxyz / tf.expand_dims(distance, 4)
+def boundary_correction(f):
+    # set fs on the boundary to zero
     # zero distance: [0,:,:,0], [-1,:,:,1], [:,0,:,2], [:,-1,:,3], [:,:,0,4], [:,:,-1,5]
     # [0,:,:,6],[:,0,:,6],   [0,:,:,7],[:,-1,:,7],   [-1,:,:,8],[:,0,:,8],    [-1,:,:,9],[:,-1,:,9]
     # [:,-1,:,10],[:,:,-1,10],   [:,0,:,11],[:,:,-1,11],   [:,-1,:,12],[:,:,0,12],    [:,-1,:,13],[:,:,-1,13]
@@ -345,7 +324,33 @@ def x2f(Kn, dL, dL_total, Tv, TdL_total, distance, dxyz, bondsign):
     f17 = tf.pad(f17[:-1, :, :, :, :], ((0, 1), (0, 0), (0, 0), (0, 0), (0, 0)))
 
     f = tf.concat([f0,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17],3)
+    return f
 
+def f2x(distance_new, distance_orig, stretch, bondsign, Tv):
+
+    sig1 = tf.sigmoid(stretch - distance_new)  # 10x10x10x18, sig=0 means crack
+    distance_inc = distance_new - distance_orig
+    flag_phase = tf.zeros((10,10,10,18))
+    dL = bondsign * flag_phase * sig1 * distance_inc # 10x10x10x18
+    bondsign_new = bondsign  * flag_phase * (1-sig1) * bondsign
+    dL += bondsign * (1-flag_phase) * distance_inc # 10x10x10x18
+    dL += (1 - bondsign) * (tf.sigmoid(-distance_inc)) * distance_inc
+    dL = boundary_correction(tf.expand_dims(dL,4))[:,:,:,0]
+    # dL_total = tf.concat([tf.expand_dims(tf.reduce_sum(dL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(dL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
+    dL_total = tf.reduce_sum(dL, 3)  # 10x10x10x1
+    TdL = dL * Tv
+    # TdL_total = tf.concat([tf.expand_dims(tf.reduce_sum(TdL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(TdL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
+    TdL_total = tf.reduce_sum(TdL, 3)  # 10x10x10x1
+
+    return dL, dL_total, TdL_total, bondsign_new
+
+def x2f(Kn, dL, dL_total, Tv, TdL_total, distance, dxyz, bondsign):
+    part1 = tf.tile(tf.expand_dims(2. * Kn * dL, 4), (1,1,1,1,3))  # 10x10x10x18x3
+    part2 = 0.5 * tf.tile(tf.expand_dims(Tv * (tf.expand_dims(dL_total,3) + neighbor_shift(dL_total)), 4), (1,1,1,1,3))   # 10x10x10x18x3
+    part3 = 0.5 * tf.tile(tf.expand_dims(tf.expand_dims(TdL_total,3) + neighbor_shift(TdL_total), 4), (1,1,1,1,3)) # 10x10x10x18x3
+    # dxyz: 10x10x10x18x3, distance: 10x10x10x18
+    f = (part1 + part2 + part3) * dxyz / tf.expand_dims(distance, 4)
+    f = boundary_correction(f)
     f = f * tf.expand_dims((bondsign - tf.sigmoid(dL)), 4)  # 10x10x10x18x3
 
     return tf.reduce_sum(f, 3), tf.reduce_sum(tf.reduce_sum(f[:,:,0,:,2], 2)) #all forces and force from top
@@ -377,6 +382,11 @@ def apply_bc(Lvel, Lacc, scale):
     Lacc = tf.concat([Lacc_top, Lacc[:, :, 1:-1, :], Lacc_bottom], 2)
 
     return Lvel, Lacc
+
+
+
+
+
 
 if __name__ == '__main__':
     num_particle_x = num_particle_y = num_particle_z = scale = 10
@@ -423,7 +433,8 @@ if __name__ == '__main__':
     # sess.run(init)
 
     for step_i in range(steps):
-        bondsign_val = sess.run(bondsign_old)
+        bondsign_interface = tf.stack([bondsign_old[:,:,4,i] for i in [5,11,13,15,17]])
+        bondsign_interface_val = sess.run(bondsign_interface)
 
         Positions_new = Positions_old + Lvel * t_step + Lacc * t_step ** 2 / 2.  # 10x10x10x3
         dxy_new, distance_new = get_distance(Positions_new)
