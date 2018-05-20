@@ -65,11 +65,13 @@ def neighbor_shift2d_around(x): #this is specific for 2D
      ], 3)
     return x_neigbor
 
-def insert(tensor_target, tensor_slice, location):
-    for i, loc_i in enumerate(location):  # n,10,10,10
-        tensor_target = tf.concat([tensor_target[:, :, :, :loc_i],
-                                   tf.expand_dims(tensor_slice[:, :, :, i], 3),
-                                   tensor_target[:, :, :, loc_i:]], 3)
+def insert(tensor_target, tensor_slice, location, dim_idx=3):
+    # tensor_slcie: n,10,10,10
+    if dim_idx == 3:
+        for i, loc_i in enumerate(location):
+            tensor_target = tf.concat([tensor_target[:, :, :, :loc_i],
+                                       tf.expand_dims(tensor_slice[:, :, :, i], 3),
+                                       tensor_target[:, :, :, loc_i:]], 3)
     return tensor_target
 
 def get_const_tensors(scale, dim, defect):
@@ -285,16 +287,18 @@ def f2x(distance_new, distance_orig, stretch, bondsign, Tv):
 
     sig1 = tf.sigmoid(stretch - distance_new)  # 10x10x10x18, sig=0 means crack
     distance_inc = distance_new - distance_orig
-    dL = distance_inc * sig1 * bondsign  # 10x10x10x18
+    flag_phase = tf.zeros((10,10,10,18))
+    dL = bondsign * flag_phase * sig1 * distance_inc # 10x10x10x18
+    bondsign_new = bondsign  * flag_phase * (1-sig1) * bondsign
+    dL += bondsign * (1-flag_phase) * distance_inc # 10x10x10x18
     dL += (1 - bondsign) * (tf.sigmoid(-distance_inc)) * distance_inc
-
     # dL_total = tf.concat([tf.expand_dims(tf.reduce_sum(dL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(dL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
     dL_total = tf.reduce_sum(dL, 3)  # 10x10x10x1
     TdL = dL * Tv
     # TdL_total = tf.concat([tf.expand_dims(tf.reduce_sum(TdL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(TdL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
     TdL_total = tf.reduce_sum(TdL, 3)  # 10x10x10x1
 
-    return dL, dL_total, TdL_total
+    return dL, dL_total, TdL_total, bondsign_new
 
 def x2f(Kn, dL, dL_total, Tv, TdL_total, distance, dxyz, bondsign):
     part1 = tf.tile(tf.expand_dims(2. * Kn * dL, 4), (1,1,1,1,3))  # 10x10x10x18x3
@@ -302,6 +306,46 @@ def x2f(Kn, dL, dL_total, Tv, TdL_total, distance, dxyz, bondsign):
     part3 = 0.5 * tf.tile(tf.expand_dims(tf.expand_dims(TdL_total,3) + neighbor_shift(TdL_total), 4), (1,1,1,1,3)) # 10x10x10x18x3
     # dxyz: 10x10x10x18x3, distance: 10x10x10x18
     f = (part1 + part2 + part3) * dxyz / tf.expand_dims(distance, 4)
+    # zero distance: [0,:,:,0], [-1,:,:,1], [:,0,:,2], [:,-1,:,3], [:,:,0,4], [:,:,-1,5]
+    # [0,:,:,6],[:,0,:,6],   [0,:,:,7],[:,-1,:,7],   [-1,:,:,8],[:,0,:,8],    [-1,:,:,9],[:,-1,:,9]
+    # [:,-1,:,10],[:,:,-1,10],   [:,0,:,11],[:,:,-1,11],   [:,-1,:,12],[:,:,0,12],    [:,-1,:,13],[:,:,-1,13]
+    # [:,:,0,14],[0,:,:,14],   [0,:,:,15],[:,:,-1,15],   [:,:,0,16],[-1,:,:,16],    [:,:,-1,17],[-1,:,:,17]
+    f0 = tf.pad(f[1:, :, :, 0:1, :], ((1, 0), (0, 0), (0, 0), (0, 0), (0, 0)))
+    f1 = tf.pad(f[:-1, :, :, 1:2, :], ((0, 1), (0, 0), (0, 0), (0, 0), (0, 0)))
+    f2 = tf.pad(f[:, 1:, :, 2:3, :], ((0, 0), (1, 0), (0, 0), (0, 0), (0, 0)))
+    f3 = tf.pad(f[:, :-1, :, 3:4, :], ((0, 0), (0, 1), (0, 0), (0, 0), (0, 0)))
+    f4 = tf.pad(f[:, :,  1:,4:5, :], ((0, 0), (0, 0), (1, 0), (0, 0), (0, 0)))
+    f5 = tf.pad(f[:, :, :-1, 5:6, :], ((0, 0), (0, 0), (0, 1), (0, 0), (0, 0)))
+
+    f6 = tf.pad(f[1:, :, :, 6:7, :], ((1, 0), (0, 0), (0, 0), (0, 0), (0, 0)))
+    f6 = tf.pad(f6[:, 1:, :, :, :], ((0, 0), (1, 0), (0, 0), (0, 0), (0, 0)))
+    f7 = tf.pad(f[1:, :, :, 7:8, :], ((1, 0), (0, 0), (0, 0), (0, 0), (0, 0)))
+    f7 = tf.pad(f7[:, :-1, :, :, :], ((0, 0), (0, 1), (0, 0), (0, 0), (0, 0)))
+    f8 = tf.pad(f[:-1, :, :,8:9, :], ((0, 1), (0, 0), (0, 0), (0, 0), (0, 0)))
+    f8 = tf.pad(f8[:, 1:, :, :, :], ((0, 0), (1, 0), (0, 0), (0, 0), (0, 0)))
+    f9 = tf.pad(f[:-1, :, :,9:10, :], ((0, 1), (0, 0), (0, 0), (0, 0), (0, 0)))
+    f9 = tf.pad(f9[:, :-1, :, :, :], ((0, 0), (0, 1), (0, 0), (0, 0), (0, 0)))
+
+    f10 = tf.pad(f[:, :-1, :, 10:11, :], ((0, 0), (0, 1), (0, 0), (0, 0), (0, 0)))
+    f10 = tf.pad(f10[:, :, :-1, :, :], ((0, 0), (0, 0), (0, 1), (0, 0), (0, 0)))
+    f11 = tf.pad(f[:, 1:, :, 11:12, :], ((0, 0), (1, 0), (0, 0), (0, 0), (0, 0)))
+    f11 = tf.pad(f11[:, :, :-1, :, :], ((0, 0), (0, 0), (0, 1), (0, 0), (0, 0)))
+    f12 = tf.pad(f[:, :-1, :, 12:13, :], ((0, 0), (0, 1), (0, 0), (0, 0), (0, 0)))
+    f12 = tf.pad(f12[:, :, 1:, :, :], ((0, 0), (0, 0), (1, 0), (0, 0), (0, 0)))
+    f13 = tf.pad(f[:, :-1, :,13:14, :], ((0, 0), (0, 1), (0, 0), (0, 0), (0, 0)))
+    f13 = tf.pad(f13[:, :, :-1, :, :], ((0, 0), (0, 0), (0, 1), (0, 0), (0, 0)))
+
+    f14 = tf.pad(f[:, :, 1:, 14:15, :], ((0, 0), (0, 0), (1, 0), (0, 0), (0, 0)))
+    f14 = tf.pad(f14[1:, :, :, :, :], ((1, 0), (0, 0), (0, 0), (0, 0), (0, 0)))
+    f15 = tf.pad(f[1:, :, :, 15:16, :], ((1, 0), (0, 0), (0, 0), (0, 0), (0, 0)))
+    f15 = tf.pad(f15[:, :, :-1, :, :], ((0, 0), (0, 0), (0, 1), (0, 0), (0, 0)))
+    f16 = tf.pad(f[:, :, 1:, 16:17, :], ((0, 0), (0, 0), (1, 0), (0, 0), (0, 0)))
+    f16 = tf.pad(f16[:-1, :, :, :, :], ((0, 1), (0, 0), (0, 0), (0, 0), (0, 0)))
+    f17 = tf.pad(f[:, :, :-1,17:18, :], ((0, 0), (0, 0), (0, 1), (0, 0), (0, 0)))
+    f17 = tf.pad(f17[:-1, :, :, :, :], ((0, 1), (0, 0), (0, 0), (0, 0), (0, 0)))
+
+    f = tf.concat([f0,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17],3)
+
     f = f * tf.expand_dims((bondsign - tf.sigmoid(dL)), 4)  # 10x10x10x18x3
 
     return tf.reduce_sum(f, 3), tf.reduce_sum(tf.reduce_sum(f[:,:,0,:,2], 2)) #all forces and force from top
@@ -353,8 +397,9 @@ if __name__ == '__main__':
         np.asarray([1. for i in range(scale) for j in range(scale)]
                    ).reshape(scale, scale, 1), dtype=tf.float32)  # Default defect pattern on the bottom surface of the upper piece
 
-    Lvel = tf.placeholder(tf.float32, (scale, scale, scale, ndim))  # velocity \dot x
-    Lacc = tf.placeholder(tf.float32, (scale, scale, scale, ndim))  # accelration \dot \dot x
+    Lvel, Lacc = apply_bc(np.zeros((scale, scale, scale, ndim)), np.zeros((scale, scale, scale, ndim)), scale)
+    # Lvel = tf.placeholder(tf.float32, (scale, scale, scale, ndim))  # velocity \dot x
+    # Lacc = tf.placeholder(tf.float32, (scale, scale, scale, ndim))  # accelration \dot \dot x
     # stretch = tf.placeholder(tf.float32, (scale, scale, scale, 3**ndim-9))  # threshold on displacement before crack
     # bondsign = tf.placeholder(tf.float32, (scale, scale, scale, 3**ndim-9))  # inital crack
 
@@ -366,12 +411,24 @@ if __name__ == '__main__':
     # pos_his = []
     # netF = []
 
+    ## training starts ###
+    FLAGS = tf.app.flags.FLAGS
+    tfconfig = tf.ConfigProto(
+        allow_soft_placement=True,
+        log_device_placement=True,
+    )
+    tfconfig.gpu_options.allow_growth = True
+    sess = tf.Session(config=tfconfig)
+    init = tf.global_variables_initializer()
+    # sess.run(init)
+
     for step_i in range(steps):
+        bondsign_val = sess.run(bondsign_old)
 
         Positions_new = Positions_old + Lvel * t_step + Lacc * t_step ** 2 / 2.  # 10x10x10x3
         dxy_new, distance_new = get_distance(Positions_new)
 
-        dL, dL_total, TdL_total = f2x(distance_new, distance_orig, stretch, bondsign, Tv)
+        dL, dL_total, TdL_total, bondsign_new = f2x(distance_new, distance_orig, stretch, bondsign_old, Tv)
 
         netF, netF_top = x2f(Kn, dL, dL_total, Tv, TdL_total, distance_new, dxy_new, bondsign)
 
@@ -381,5 +438,8 @@ if __name__ == '__main__':
 
         # pos_his += [Positions_new]
         print('done')
-
+        bondsign_old = bondsign_new
     # tf.gradients(netF, Positions)
+
+
+
