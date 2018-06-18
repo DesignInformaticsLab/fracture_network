@@ -326,15 +326,17 @@ def boundary_correction(f):
     f = tf.concat([f0,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17],3)
     return f
 
+beta = 100000.
+
 def f2x(distance_new, distance_orig, stretch, bondsign, Tv):
 
-    sig1 = tf.sigmoid(stretch - distance_new)  # 10x10x10x18, sig=0 means crack
+    sig1 = tf.sigmoid(beta* (stretch - distance_new))  # 10x10x10x18, sig=0 means crack
     distance_inc = distance_new - distance_orig
-    flag_phase = tf.zeros((10,10,10,18))
+    flag_phase = tf.ones((10,10,10,18))
     dL = bondsign * flag_phase * sig1 * distance_inc # 10x10x10x18
     bondsign_new = bondsign  * flag_phase * (1-sig1) * bondsign
     dL += bondsign * (1-flag_phase) * distance_inc # 10x10x10x18
-    dL += (1 - bondsign) * (tf.sigmoid(-distance_inc)) * distance_inc
+    dL += (1 - bondsign) * (tf.sigmoid(-beta*distance_inc)) * distance_inc
     dL = boundary_correction(tf.expand_dims(dL,4))[:,:,:,0]
     # dL_total = tf.concat([tf.expand_dims(tf.reduce_sum(dL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(dL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
     dL_total = tf.reduce_sum(dL, 3)  # 10x10x10x1
@@ -351,7 +353,7 @@ def x2f(Kn, dL, dL_total, Tv, TdL_total, distance, dxyz, bondsign):
     # dxyz: 10x10x10x18x3, distance: 10x10x10x18
     f = (part1 + part2 + part3) * dxyz / tf.expand_dims(distance, 4)
     f = boundary_correction(f)
-    f = f * tf.expand_dims((bondsign - tf.sigmoid(dL)), 4)  # 10x10x10x18x3
+    f = f * tf.expand_dims((bondsign - tf.sigmoid(beta * dL)), 4)  # 10x10x10x18x3
 
     return tf.reduce_sum(f, 3), tf.reduce_sum(tf.reduce_sum(f[:,:,0,:,2], 2)) #all forces and force from top
 
