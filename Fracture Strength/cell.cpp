@@ -9,15 +9,15 @@
 #include <algorithm>
 #include <iomanip>
 #include <ctime>
-#include <omp.h>
+//#include <omp.h>
 #include <float.h>
 #include <limits.h>
 
 using namespace std;
 
-#define M 100
-#define N 100
-#define L 100
+#define M 10
+#define N 10
+#define L 10
 
 #define ndim 3
 
@@ -228,7 +228,7 @@ ifstream fin("pattern_100x100x100.vtk");
 
 	nparticle1=n2;
 
-
+    cout<<"nparticle1: "<<nparticle1<<endl;
 
 	nedge[0] = Le+1;
 	nedge[1] = Ri+1;
@@ -271,7 +271,7 @@ void Searchneighbor()
 double dis;
 int i,j,index;
 
-	#pragma omp parallel for private(index,dis,j)
+	//#pragma omp parallel for private(index,dis,j)
 	for(i=0;i<nparticle1;i++)
 	{
 		//cout<<"neighbor:"<<i<<endl;
@@ -475,7 +475,7 @@ for(j=0;j<nneighbors;j++)
 distance1[i][j]=0;
 
 
-	#pragma omp parallel for private(j)
+	//#pragma omp parallel for private(j)
 	for(i=0;i<nparticle1;i++)
 	{
 		//#pragma omp parallel for
@@ -552,7 +552,7 @@ void Netinteraction ()
 	for(j=0;j<ndim;j++)
 	netF[i][j]=0;
 
-	#pragma omp parallel for private(dx,dy,dz,f,j)
+	//#pragma omp parallel for private(dx,dy,dz,f,j)
 	for(i=0;i<nparticle1;i++)
 	{
 		//#pragma omp parallel for
@@ -776,7 +776,7 @@ void phase_expansion(double speed, int time)
 
 int main ()
 {
-int coreNum = omp_get_num_procs();
+//int coreNum = omp_get_num_procs();
 struct timespec time1 ={0,0};
 struct timespec time2 ={0,0};
 clock_gettime(CLOCK_REALTIME,&time1);
@@ -839,7 +839,7 @@ steps = floor((t_end-t_start)/t_step);
 MaxF1=0;
 int t;
 
-for(t=1; t<=400000; t++)
+for(t=1; t<=100; t++)
 {
 
 		for(int i=0; i<nparticle1; i++)
@@ -970,7 +970,7 @@ output_map(t);
 
 
 
-cout<<"cpu numbers: "<<coreNum<<endl;
+//cout<<"cpu numbers: "<<coreNum<<endl;
 
 clock_gettime(CLOCK_REALTIME,&time2);
 cout<<"real time costs: "<<(time2.tv_sec-time1.tv_sec)<<"s"<<endl;

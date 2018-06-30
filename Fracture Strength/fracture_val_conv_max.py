@@ -326,7 +326,6 @@ def boundary_correction(f):
     f = tf.concat([f0,f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17],3)
     return f
 
-beta = 100000.
 
 def f2x(distance_new, distance_orig, stretch, bondsign, Tv):
 
@@ -334,9 +333,10 @@ def f2x(distance_new, distance_orig, stretch, bondsign, Tv):
     distance_inc = distance_new - distance_orig
     flag_phase = tf.ones((10,10,10,18))
     dL = bondsign * flag_phase * sig1 * distance_inc # 10x10x10x18
-    bondsign_new = bondsign  * flag_phase * (1-sig1) * bondsign
+    bondsign_new = bondsign  * flag_phase * (1-sig1) * bondsign ######### Double check on the trasition
     dL += bondsign * (1-flag_phase) * distance_inc # 10x10x10x18
-    dL += (1 - bondsign) * (tf.sigmoid(-beta*distance_inc)) * distance_inc
+    sig2 = tf.sigmoid(-beta*distance_inc-0.0) ##########Double check how to handle distance_inc==0
+    dL += (1 - bondsign) * (sig2) * distance_inc
     dL = boundary_correction(tf.expand_dims(dL,4))[:,:,:,0]
     # dL_total = tf.concat([tf.expand_dims(tf.reduce_sum(dL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(dL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
     dL_total = tf.reduce_sum(dL, 3)  # 10x10x10x1
@@ -344,7 +344,11 @@ def f2x(distance_new, distance_orig, stretch, bondsign, Tv):
     # TdL_total = tf.concat([tf.expand_dims(tf.reduce_sum(TdL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(TdL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
     TdL_total = tf.reduce_sum(TdL, 3)  # 10x10x10x1
 
-    return dL, dL_total, TdL_total, bondsign_new
+    dbg_val = {}
+    dbg_val['sig1'] = sig1
+    dbg_val['sig2'] = sig2
+
+    return dL, dL_total, TdL_total, bondsign_new, dbg_val
 
 def x2f(Kn, dL, dL_total, Tv, TdL_total, distance, dxyz, bondsign):
     part1 = tf.tile(tf.expand_dims(2. * Kn * dL, 4), (1,1,1,1,3))  # 10x10x10x18x3
@@ -353,9 +357,12 @@ def x2f(Kn, dL, dL_total, Tv, TdL_total, distance, dxyz, bondsign):
     # dxyz: 10x10x10x18x3, distance: 10x10x10x18
     f = (part1 + part2 + part3) * dxyz / tf.expand_dims(distance, 4)
     f = boundary_correction(f)
-    f = f * tf.expand_dims((bondsign - tf.sigmoid(beta * dL)), 4)  # 10x10x10x18x3
+    sig1 = tf.sigmoid(beta * dL)
+    f = f * tf.expand_dims((bondsign - sig1), 4)  # 10x10x10x18x3
 
-    return tf.reduce_sum(f, 3), tf.reduce_sum(tf.reduce_sum(f[:,:,0,:,2], 2)) #all forces and force from top
+    dbg_val = {}
+    dbg_val['sig1'] = sig1
+    return tf.reduce_sum(f, 3), tf.reduce_sum(tf.reduce_sum(f[:,:,0,:,2], 2)), dbg_val #all forces and force from top
 
 def apply_bc(Lvel, Lacc, scale):
     # clip&padding to enforce boundary condition
@@ -393,10 +400,11 @@ def apply_bc(Lvel, Lacc, scale):
 if __name__ == '__main__':
     num_particle_x = num_particle_y = num_particle_z = scale = 10
     ndim = 3  # physical spatial dimension of the problem
-    t_step = 0.01  # time steps of the simulation
-    steps = 5  # number of steps for simulation
-    Mass = 1.
+    t_step = 1e-9  # time steps of the simulation
+    steps = 500  # number of steps for simulation
+    Mass = 0.01**2 * 4.43E2 / 1000
     len = 0.01 # physical size of the problem
+    beta = 1e10 # slop of sigmoid
 
     # Positions = tf.placeholder(tf.float32, (scale, scale, scale, ndim)) # position x
     grid = np.linspace(0, len, scale)
@@ -441,9 +449,9 @@ if __name__ == '__main__':
         Positions_new = Positions_old + Lvel * t_step + Lacc * t_step ** 2 / 2.  # 10x10x10x3
         dxy_new, distance_new = get_distance(Positions_new)
 
-        dL, dL_total, TdL_total, bondsign_new = f2x(distance_new, distance_orig, stretch, bondsign_old, Tv)
+        dL, dL_total, TdL_total, bondsign_new, dbg_val_f2x = f2x(distance_new, distance_orig, stretch, bondsign_old, Tv)
 
-        netF, netF_top = x2f(Kn, dL, dL_total, Tv, TdL_total, distance_new, dxy_new, bondsign)
+        netF, netF_top, dbg_val_x2f = x2f(Kn, dL, dL_total, Tv, TdL_total, distance_new, dxy_new, bondsign)
 
         Lacc = netF / Mass #10x10x10x3
         Lvel = Lvel + Lacc * t_step #10x10x10x3

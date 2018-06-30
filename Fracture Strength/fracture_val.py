@@ -379,7 +379,7 @@ for index_fil in range(1, 2):
             damage = Phase01[i]
 
         crack.append(damage)
-    sio.savemat('./status/Wb_{}/crack_{}.mat'.format(index_fil, index_fil), {'crack': crack})
+    sio.savemat('./status/WB_{}/crack_{}.mat'.format(index_fil, index_fil), {'crack': crack})
 
     # save Bforce
     sio.savemat('./status/WB_{}/Bforce_total_{}.mat'.format(index_fil, index_fil), {'Bforce': Bforce})
