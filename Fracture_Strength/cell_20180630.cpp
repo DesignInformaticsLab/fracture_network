@@ -32,11 +32,11 @@ int nparticle1;
 double Radius = boxlength/(2.0*M);//assume M=N=L
 double rho = 4.43E2;//in 2d is 4.43E3, in order to keep the same mass so that acceleration won't be too large
 double sigY = 2E5;
-double E0 = 1E7;
+double E0 = 1E6;
 double mu0 = 0.3;
-double E1 = 1E7;
+double E1 = 2E9;
 double mu1 = 0.3;
-double E2 = 1E8;
+double E2 = 1E6;
 double mu2 = 0.3;
 double Mass, Kn01, Kn02, Tv0, Kn11, Kn12, Tv1;//, damping;
 double Kn21, Kn22, Tv2;
@@ -115,12 +115,14 @@ int i,j,k,Le,Ri,To,Bo,Ba,Fr,n1,n2;
 //int i,j,q,l,k,m,n,n1,n2;
 
 //ofstream fout("edge_check.dat");
-ifstream fin("pattern_100x100x100.vtk");
+ifstream fin("w3_attached_100x100x100.vtk");
 
 
 	for(i=0;i<nparticle;i++)
 	{
 		fin>>Phase01[i];
+		Phase01[i]=0;
+
 	}
 	fin.close();
 
@@ -228,7 +230,7 @@ ifstream fin("pattern_100x100x100.vtk");
 
 	nparticle1=n2;
 
-    cout<<"nparticle1: "<<nparticle1<<endl;
+
 
 	nedge[0] = Le+1;
 	nedge[1] = Ri+1;
@@ -328,7 +330,7 @@ int i,j,index;
 				Tv[i][index] = 1e6;
 
 				//Stretch[i][index] = (1*sigY/(4.0*(Kn01*Kn21/(Kn01+Kn21))) + 1.0)*dis;
-				Stretch[i][index] = 0.000105;
+				Stretch[i][index] = 0.000102594;
 				}
 
 				else if(((Phase01[n2Tn1[i]] == 2) && (Phase01[n2Tn1[j]] ==1))||((Phase01[n2Tn1[i]] == 1) && (Phase01[n2Tn1[j]] ==2)))
@@ -342,7 +344,7 @@ int i,j,index;
 				Tv[i][index] = 1e6;
 
 				//Stretch[i][index] = (1*sigY/(4.0*(Kn21*Kn11/(Kn21+Kn11))) + 1.0)*dis;
-				Stretch[i][index] = 0.000105;
+				Stretch[i][index] = 0.000102594;
 				}
 
 			index++;
@@ -395,7 +397,7 @@ int i,j,index;
 				Tv[i][index] = 1e6;
 
 				//Stretch[i][index] = (1*sigY/(4.0*(Kn01*Kn21/(Kn01+Kn21)))/sqrt(2.0) + 1.0)*dis;
-				Stretch[i][index] = 0.000149;
+				Stretch[i][index] = 0.00014509;
 				}
 				else if(((Phase01[n2Tn1[i]] == 2) && (Phase01[n2Tn1[j]] ==1))||((Phase01[n2Tn1[i]] == 1) && (Phase01[n2Tn1[j]] ==2)))
 				{
@@ -408,7 +410,7 @@ int i,j,index;
 				Tv[i][index] = 1e6;
 
 				//Stretch[i][index] = (1*sigY/(4.0*(Kn21*Kn11/(Kn21+Kn11)))/sqrt(2.0) + 1.0)*dis;
-				Stretch[i][index] = 0.000149;
+				Stretch[i][index] = 0.00014509;
 				}
 
 
@@ -436,15 +438,13 @@ int i,j,index;
 	bondsign[i][j]=1;
 */
 
-	ifstream fin("design_crack_perfect");
+	ifstream fin("bondsign3498");
 	for(i=0;i<nparticle1;i++)
 	for(j=0;j<NB[i];j++)
 	{
 	fin>>bondsign[i][j];
+	bondsign[i][j]=1;
 	}
-
-
-
 
 
 cout<<"***********************search neighbor completed***************************"<<endl;
@@ -463,11 +463,11 @@ dL[i][j]=0;
 
 
 for(i=0;i<nparticle;i++)
-for(j=0;j<2;j++)
+for(j=0;j<ndim;j++)
 dL_total[i][j]=0;
 
 for(i=0;i<nparticle;i++)
-for(j=0;j<2;j++)
+for(j=0;j<ndim;j++)
 TdL_total[i][j]=0;
 
 for(i=0;i<nparticle;i++)
@@ -490,12 +490,12 @@ distance1[i][j]=0;
 				{
 					if((Phase01[i]!=Phase01[neighbors[i][j]])&&(Phase01[i]==2||Phase01[neighbors[i][j]]==2))
 					{
-						if(distance1[i][j]<=Stretch[i][j])
+						//if(distance1[i][j]<=Stretch[i][j])
 						dL[i][j] = distance1[i][j]-origindistance[i][j];
 						//else if(distance1[i][j]>Stretch[i][j]&&distance1[i][j]<=2.0*Stretch[i][j])
 						//dL[i][j] = Stretch[i][j]-origindistance[i][j];
-						else
-						bondsign[i][j]=0;
+						//else
+						//bondsign[i][j]=0;
 					}
 					else
 					{
@@ -516,12 +516,12 @@ distance1[i][j]=0;
 				{
 					if((Phase01[i]!=Phase01[neighbors[i][j]])&&(Phase01[i]==2||Phase01[neighbors[i][j]]==2))
 					{
-						if(distance1[i][j]<=Stretch[i][j])
+						//if(distance1[i][j]<=Stretch[i][j])
 						dL[i][j] = distance1[i][j]-origindistance[i][j];
 						//else if(distance1[i][j]>Stretch[i][j]&&distance1[i][j]<=2.0*Stretch[i][j])
 						//dL[i][j] = Stretch[i][j]-origindistance[i][j];
-						else
-						bondsign[i][j]=0;
+						//else
+						//bondsign[i][j]=0;
 					}
 					else
 					{
@@ -597,25 +597,57 @@ int output_map(int time, int ct=0)
 	//char filename2[255];
 	//char filename3[255];
 	//char filename4[255];
-	char filename5[255];
-	char filename6[255];
-	char filename7[255];
+	//char filename5[255];
+	//char filename6[255];
+	//char filename7[255];
+	//char filename8[255];
+	char filename9[255];
+	char filename10[255];
+	char filename11[255];
+	char filename12[255];
+	char filename13[255];
+	char filename14[255];
+	char filename15[255];
+	char filename16[255];
+	char filename17[255];
 
 	//sprintf(filename1,"disxy_time%d.dat",time);
 	//sprintf(filename2,"disyz_time%d.dat",time);
 	//sprintf(filename3,"diszx_time%d.dat",time);
 	//sprintf(filename4,"Ur_time%d",time);
-	sprintf(filename5,"crack_structure_time%d_ct%d.vtk",time,ct);
-	sprintf(filename6,"crack_pure_time%d_ct%d.vtk",time,ct);
-	sprintf(filename7,"stretch_time%d_ct%d.vtk",time,ct);
+	//sprintf(filename5,"crack_structure_time%d_ct%d.vtk",time,ct);
+	//sprintf(filename6,"crack_pure_time%d_ct%d.vtk",time,ct);
+	//sprintf(filename7,"stretch_time%d_ct%d.vtk",time,ct);
+	//sprintf(filename8,"interface_dispField_time%d_ct%d.vtk",time,ct);
+	sprintf(filename9,"Position_%d.txt",time);
+	sprintf(filename10,"dL_%d.txt",time);
+	sprintf(filename11,"dL_Total_%d.txt",time);
+	sprintf(filename12,"TdL_Total_%d.txt",time);
+	sprintf(filename13,"bondsign_new_%d.txt",time);
+	sprintf(filename14,"Phase01_%d.txt",time);
+
+	sprintf(filename15,"Lvel_%d.txt",time);
+	sprintf(filename16,"Lacc_%d.txt",time);
+	sprintf(filename17,"netF_%d.txt",time);
 
 	//ofstream fout1(filename1);
 	//ofstream fout2(filename2);
 	//ofstream fout3(filename3);
 	//ofstream fout4(filename4);
-	ofstream fout5(filename5);
-	ofstream fout6(filename6);
-	ofstream fout7(filename7);
+	//ofstream fout5(filename5);
+	//ofstream fout6(filename6);
+	//ofstream fout7(filename7);
+	//ofstream fout8(filename8);
+	ofstream fout9(filename9);
+	ofstream fout10(filename10);
+	ofstream fout11(filename11);
+	ofstream fout12(filename12);
+	ofstream fout13(filename13);
+	ofstream fout14(filename14);
+
+	ofstream fout15(filename15);
+	ofstream fout16(filename16);
+	ofstream fout17(filename17);
 
 	//for(int i=0; i<nparticle1; i++)
 	//{
@@ -674,52 +706,87 @@ int output_map(int time, int ct=0)
 
 
 
-        fout5<<"# vtk DataFile Version 3.0"<<endl;
-        fout5<<"2D_to_3D example"<<endl;
-        fout5<<"ASCII"<<endl;
-        fout5<<"DATASET STRUCTURED_POINTS"<<endl;
-        fout5<<"DIMENSIONS 100 100 100"<<endl;
-        fout5<<"SPACING 1 1 1"<<endl;
-        fout5<<"ORIGIN 0 0 0"<<endl;
-        fout5<<"POINT_DATA 1000000"<<endl;
-        fout5<<"SCALARS volume_scalars UNSIGNED_INT 1"<<endl;
-        fout5<<"LOOKUP_TABLE default"<<endl;
+        //fout5<<"# vtk DataFile Version 3.0"<<endl;
+        //fout5<<"2D_to_3D example"<<endl;
+        //fout5<<"ASCII"<<endl;
+        //fout5<<"DATASET STRUCTURED_POINTS"<<endl;
+        //fout5<<"DIMENSIONS 100 100 100"<<endl;
+        //fout5<<"SPACING 1 1 1"<<endl;
+        //fout5<<"ORIGIN 0 0 0"<<endl;
+        //fout5<<"POINT_DATA 1000000"<<endl;
+        //fout5<<"SCALARS volume_scalars UNSIGNED_INT 1"<<endl;
+        //fout5<<"LOOKUP_TABLE default"<<endl;
 
-        fout6<<"# vtk DataFile Version 3.0"<<endl;
-        fout6<<"2D_to_3D example"<<endl;
-        fout6<<"ASCII"<<endl;
-        fout6<<"DATASET STRUCTURED_POINTS"<<endl;
-        fout6<<"DIMENSIONS 100 100 100"<<endl;
-        fout6<<"SPACING 1 1 1"<<endl;
-        fout6<<"ORIGIN 0 0 0"<<endl;
-        fout6<<"POINT_DATA 1000000"<<endl;
-        fout6<<"SCALARS volume_scalars UNSIGNED_INT 1"<<endl;
-        fout6<<"LOOKUP_TABLE default"<<endl;
+        //fout6<<"# vtk DataFile Version 3.0"<<endl;
+        //fout6<<"2D_to_3D example"<<endl;
+        //fout6<<"ASCII"<<endl;
+        //fout6<<"DATASET STRUCTURED_POINTS"<<endl;
+        //fout6<<"DIMENSIONS 100 100 100"<<endl;
+        //fout6<<"SPACING 1 1 1"<<endl;
+        //fout6<<"ORIGIN 0 0 0"<<endl;
+        //fout6<<"POINT_DATA 1000000"<<endl;
+        //fout6<<"SCALARS volume_scalars UNSIGNED_INT 1"<<endl;
+        //fout6<<"LOOKUP_TABLE default"<<endl;
 
 
+	//for(int i=0; i<nparticle1; i++)
+	//{
+	//        if (count_if(bondsign[i], bondsign[i]+NB[i], Iszero)!=0)
+	//	{
+	//                damage = 4;
+	//	}
+	//        else
+	//                damage = Phase01[i];
+	//
+	//        fout5<<damage<<endl;
+
+	//	if (damage==4)
+	//	fout6<<damage<<endl;
+	//	else
+	//	fout6<<"0"<<endl;
+
+	//	for(int j=0; j<NB[i]; j++)
+	//	{
+	//		if((Phase01[i]!=Phase01[neighbors[i][j]])&&(Phase01[i]==2||Phase01[neighbors[i][j]]==2))
+	//		{
+	//			fout7<<i<<"\t"<<j<<"\t"<<neighbors[i][j]<<"\t"<<distance1[i][j]<<"\t"<<Stretch[i][j]<<"\t"<<nsign[i][j]<<endl;
+	//		}
+	//
+	//	}
+	//}
+	/*
+	fout9<<"Position_x"<<"\t"<<"Position_y"<<"\t"<<"Position_z"<<endl;
+	fout10<<"Particle_i"<<"\t"<<"Neighbor_j"<<endl;
+	fout11<<"dL_total_x"<<"\t"<<"dL_total_y"<<endl;
+	fout12<<"TdL_total_x"<<"\t"<<"TdL_total_y"<<endl;
+	fout13<<"Particle_i"<<"\t"<<"Neighbor_j"<<"\t"<<"bondsign_new"<<endl;
+	fout14<<"Phase01"<<endl;
+	*/
+	int p = 20;
 	for(int i=0; i<nparticle1; i++)
 	{
-	        if (count_if(bondsign[i], bondsign[i]+NB[i], Iszero)!=0)
-		{
-	                damage = 4;
-		}
-	        else
-	                damage = Phase01[i];
+		//double disx = OrinPositions[i][0] - Positions[i][0];
+		//double disy = OrinPositions[i][1] - Positions[i][1];
+		//double disz = OrinPositions[i][2] - Positions[i][2];
+		//double distot = disx*disx+disy*disy+disz*disz;
+		//int indicator=0;
+		//if(Phase01[i]!=2)
+		fout9<<fixed<<showpoint<<std::setprecision(p)<<Positions[i][0]<<"\t"<<fixed<<showpoint<<std::setprecision(p)<<Positions[i][1]<<"\t"<<fixed<<showpoint<<std::setprecision(p)<<Positions[i][2]<<endl;
+		fout11<<fixed<<showpoint<<std::setprecision(p)<<dL_total[i][0]<<"\t"<<fixed<<showpoint<<std::setprecision(p)<<dL_total[i][1]<<endl;
+		fout12<<fixed<<showpoint<<std::setprecision(p)<<TdL_total[i][0]<<"\t"<<fixed<<showpoint<<std::setprecision(p)<<TdL_total[i][1]<<endl;
+		fout14<<fixed<<showpoint<<std::setprecision(p)<<Phase01[i]<<endl;
 
-	        fout5<<damage<<endl;
-
-		if (damage==4)
-		fout6<<damage<<endl;
-		else
-		fout6<<"0"<<endl;
+		fout15<<fixed<<showpoint<<std::setprecision(p)<<Lvel[i][0]<<"\t"<<fixed<<showpoint<<std::setprecision(p)<<Lvel[i][1]<<"\t"<<fixed<<showpoint<<std::setprecision(p)<<Lvel[i][2]<<endl;
+		fout15.flush();
+		fout16<<fixed<<showpoint<<std::setprecision(p)<<Lacc[i][0]<<"\t"<<fixed<<showpoint<<std::setprecision(p)<<Lacc[i][1]<<"\t"<<fixed<<showpoint<<std::setprecision(p)<<Lacc[i][2]<<endl;
+		fout16.flush();
+		fout17<<fixed<<showpoint<<std::setprecision(p)<<netF[i][0]<<"\t"<<fixed<<showpoint<<std::setprecision(p)<<netF[i][1]<<"\t"<<fixed<<showpoint<<std::setprecision(p)<<netF[i][2]<<endl;
+		fout17.flush();
 
 		for(int j=0; j<NB[i]; j++)
 		{
-			if((Phase01[i]!=Phase01[neighbors[i][j]])&&(Phase01[i]==2||Phase01[neighbors[i][j]]==2))
-			{
-				fout7<<i<<"\t"<<j<<"\t"<<neighbors[i][j]<<"\t"<<distance1[i][j]<<"\t"<<Stretch[i][j]<<"\t"<<nsign[i][j]<<endl;
-			}
-
+			fout10<<i<<"\t"<<j<<"\t"<<dL[i][j]<<endl;
+			fout13<<i<<"\t"<<j<<"\t"<<bondsign[i][j]<<endl;
 		}
 	}
 
@@ -839,7 +906,7 @@ steps = floor((t_end-t_start)/t_step);
 MaxF1=0;
 int t;
 
-for(t=1; t<=100; t++)
+for(t=1; t<=4; t++)
 {
 
 		for(int i=0; i<nparticle1; i++)
@@ -854,11 +921,14 @@ for(t=1; t<=100; t++)
 
 		}
 
-
+		output_map(t);
 		Update();
+		output_map(10+t);
 
 
 		Netinteraction();
+
+		output_map(20+t);
 
 		for(int i=0; i<nparticle1; i++)
 		{
@@ -874,7 +944,7 @@ for(t=1; t<=100; t++)
 			Lvel[i][2] = Lvel_t[i][2] + Lacc[i][2]*t_step/2.0;
 		}
 
-
+		output_map(30+t);
 
 
 
@@ -934,34 +1004,34 @@ for(t=1; t<=100; t++)
         if(fabs(tmf1)>MaxF1)
         MaxF1 = fabs(tmf1);
 
-	if(t>50000)
-	{
-        	if(fabs(tmf1)<(MaxF1/10.0))
-		{
-		fout1<<MaxF1<<endl;
-        	break;
-		}
-	}
+	//if(t>50000)
+	//{
+        //	if(fabs(tmf1)<(MaxF1/10.0))
+	//	{
+	//	fout1<<MaxF1<<endl;
+        //	break;
+	//	}
+	//}
 
     	cout<<t<<endl;
 
 
-       int counter=0;
-       for(int i=0; i<nparticle1; i++)
-        {
-                if (count_if(bondsign[i], bondsign[i]+NB[i], Iszero)!=0)
-                {
-                        counter++;
-                }
-        }
-	if(t%10000==0)
-	output_map(t,counter);
+//       int counter=0;
+//       for(int i=0; i<nparticle1; i++)
+//        {
+//                if (count_if(bondsign[i], bondsign[i]+NB[i], Iszero)!=0)
+//                {
+//                        counter++;
+//                }
+//        }
+	//if(t%1==0)
+	//output_map(t);
 
 
 }
 
 
-output_map(t);
+//output_map(t);
 
 
 

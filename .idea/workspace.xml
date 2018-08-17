@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96919aee-fcc7-49ef-9052-54204df6e318" name="Default" comment="pay attention to distance change at the starting point.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Fracture Strength/alloy_mat/Bforce_store.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/alloy_mat/Bforce_store.mat" />
       <change beforePath="$PROJECT_DIR$/Fracture Strength/alloy_mat/Lvel_inital.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/alloy_mat/Lvel_inital.mat" />
       <change beforePath="$PROJECT_DIR$/Fracture Strength/alloy_mat/Lvel_store.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/alloy_mat/Lvel_store.mat" />
@@ -94,8 +93,8 @@
       <file leaf-file-name="fracture_val_conv_max.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="454" column="42" lean-forward="false" selection-start-line="454" selection-start-column="42" selection-end-line="454" selection-end-column="42" />
+            <state relative-caret-position="282">
+              <caret line="459" column="52" lean-forward="true" selection-start-line="459" selection-start-column="52" selection-end-line="459" selection-end-column="52" />
               <folding>
                 <element signature="e#136#159#0" expanded="true" />
               </folding>
@@ -103,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ops.py" pinned="false" current-in-tab="true">
-        <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/tensorflow/python/framework/ops.py">
+      <file leaf-file-name="cell_20180630.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Fracture_Strength/cell_20180630.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="570" column="15" lean-forward="true" selection-start-line="570" selection-start-column="15" selection-end-line="570" selection-end-column="15" />
+            <state relative-caret-position="793">
+              <caret line="1054" column="1" lean-forward="false" selection-start-line="1054" selection-start-column="1" selection-end-line="1054" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -174,6 +173,7 @@
         <option value="$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py" />
         <option value="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py" />
         <option value="$PROJECT_DIR$/Fracture_Strength/cell.cpp" />
+        <option value="$PROJECT_DIR$/Fracture_Strength/cell_20180630.cpp" />
       </list>
     </option>
   </component>
@@ -508,20 +508,27 @@
       <option name="project" value="LOCAL" />
       <updated>1530348075866</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="float64 has influence in t=0&#10;not sure why t=0 and t=1 has the same Position, but t=2 differs">
+      <created>1534465634033</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1534465634033</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-4" width="1857" height="1085" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26010928" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1693989" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23523207" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.342827" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.342827" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1793249" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17827004" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3586498" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -599,7 +606,8 @@
     <MESSAGE value="need to translate line 491 in cell.cpp into line 333 in fracture_val_conv_max.py" />
     <MESSAGE value="problem: the change in one step is always to subtile, and sigmoid will always return something close to 0.5" />
     <MESSAGE value="pay attention to distance change at the starting point." />
-    <option name="LAST_COMMIT_MESSAGE" value="pay attention to distance change at the starting point." />
+    <MESSAGE value="float64 has influence in t=0&#10;not sure why t=0 and t=1 has the same Position, but t=2 differs" />
+    <option name="LAST_COMMIT_MESSAGE" value="float64 has influence in t=0&#10;not sure why t=0 and t=1 has the same Position, but t=2 differs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1070,10 +1078,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/tensorflow/python/framework/ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="570" column="15" lean-forward="true" selection-start-line="570" selection-start-column="15" selection-end-line="570" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="454" column="42" lean-forward="false" selection-start-line="454" selection-start-column="42" selection-end-line="454" selection-end-column="42" />
+        <state relative-caret-position="282">
+          <caret line="459" column="52" lean-forward="true" selection-start-line="459" selection-start-column="52" selection-end-line="459" selection-end-column="52" />
           <folding>
             <element signature="e#136#159#0" expanded="true" />
           </folding>
@@ -1082,16 +1098,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Fracture_Strength/cell_20180630.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="1038" column="1" lean-forward="false" selection-start-line="1038" selection-start-column="1" selection-end-line="1038" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/tensorflow/python/framework/ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="570" column="15" lean-forward="true" selection-start-line="570" selection-start-column="15" selection-end-line="570" selection-end-column="15" />
+        <state relative-caret-position="793">
+          <caret line="1054" column="1" lean-forward="false" selection-start-line="1054" selection-start-column="1" selection-end-line="1054" selection-end-column="1" />
           <folding />
         </state>
       </provider>

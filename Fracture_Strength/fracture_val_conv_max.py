@@ -91,7 +91,7 @@ def get_const_tensors(scale, dim, defect):
     Kn02 = 2.0*E0/(1.0 + mu0)  # Kn for far neighbours, same material
     Tv0 = E0*(4.0*mu0 - 1.0)/((9+4*np.sqrt(2))*(1.0 + mu0)*(1.0 - 2.0*mu0))  # Tv for all neighbours, same material
     S01 = (120*sigY/(2.0*Kn01) + 1.0)*dis  # stretch threshold for close neighbours, same material
-    S02 = (120*sigY/(2.0*Kn01) + 1.0*tf.sqrt(2.0))*dis  # stretch threshold for far neighbours, same material
+    S02 = (120*sigY/(2.0*Kn01) + 1.0*np.sqrt(2.0))*dis  # stretch threshold for far neighbours, same material
     #TODO: should stretch thresholds be different for close or far neighbours?
 
     Kn11 = 1e6  # Kn for close neighbours, interface
@@ -110,27 +110,27 @@ def get_const_tensors(scale, dim, defect):
     # layer at the interface
 
     half_scale = int(scale/2)
-    Tv_top = tf.ones((scale,scale,half_scale-2,18))*Tv0  # the upper piece without the last two layers
-    Tv_bottom = tf.ones((scale,scale,half_scale-1,18))*Tv0  # the bottom piece with out the first layer
+    Tv_top = tf.ones((scale,scale,half_scale-2,18),tf_dtype)*Tv0  # the upper piece without the last two layers
+    Tv_bottom = tf.ones((scale,scale,half_scale-1,18),tf_dtype)*Tv0  # the bottom piece with out the first layer
 
     # the upper piece without the last two layers
-    Kn_top = tf.concat([tf.ones((scale,scale,half_scale-2,6))*Kn01,  # 6 close neighbours
-                        tf.ones((scale,scale,half_scale-2,12))*Kn02],3)  # 12 far neighbours
+    Kn_top = tf.concat([tf.ones((scale,scale,half_scale-2,6),tf_dtype)*Kn01,  # 6 close neighbours
+                        tf.ones((scale,scale,half_scale-2,12),tf_dtype)*Kn02],3)  # 12 far neighbours
 
     # the bottom piece with out the first layer
-    Kn_bottom = tf.concat([tf.ones((scale,scale,half_scale-1,6))*Kn01,  # 6 close neighbours
-                           tf.ones((scale,scale,half_scale-1,12))*Kn02],3)  # 12 far neighbours
+    Kn_bottom = tf.concat([tf.ones((scale,scale,half_scale-1,6),tf_dtype)*Kn01,  # 6 close neighbours
+                           tf.ones((scale,scale,half_scale-1,12),tf_dtype)*Kn02],3)  # 12 far neighbours
 
     # the upper piece without the last two layers
-    stretch_top = tf.concat([tf.ones((scale,scale,half_scale-2,6))*S01,
-                             tf.ones((scale,scale,half_scale-2,12))*S02],3)
+    stretch_top = tf.concat([tf.ones((scale,scale,half_scale-2,6),tf_dtype)*S01,
+                             tf.ones((scale,scale,half_scale-2,12),tf_dtype)*S02],3)
 
     # the bottom piece with out the first layer
-    stretch_bottom = tf.concat([tf.ones((scale,scale,half_scale-1,6))*S01,  # 6 close neighbours
-                               tf.ones((scale,scale,half_scale-1,12))*S02],3)  # 12 far neighbours
+    stretch_bottom = tf.concat([tf.ones((scale,scale,half_scale-1,6),tf_dtype)*S01,  # 6 close neighbours
+                               tf.ones((scale,scale,half_scale-1,12),tf_dtype)*S02],3)  # 12 far neighbours
 
-    bondsign_top = tf.ones((scale,scale,half_scale-2,18))
-    bondsign_bottom = tf.ones((scale,scale,half_scale-1,18))
+    bondsign_top = tf.ones((scale,scale,half_scale-2,18),tf_dtype)
+    bondsign_bottom = tf.ones((scale,scale,half_scale-1,18),tf_dtype)
 
     # for the second last layer of the upper piece, we will check whether particles are linked to defects on the last
     # layer of the upper piece, thus we need all indices for the bottom links (total 5)
@@ -142,27 +142,27 @@ def get_const_tensors(scale, dim, defect):
 
     # upper piece second layer to the surface
     shifted_defect_top_2 = neighbor_shift2d_top(defect)  # check whether defects exists at the bottom (5 locations)
-    Tv_top_2 = insert(tensor_target=tf.ones((scale,scale,1,13))*Tv0,  # all 13 locations other than the 5 at the bottom
-                      tensor_slice=tf.ones((scale,scale,1,5))*Tv0*shifted_defect_top_2 +  # no defect
-                      tf.ones((scale,scale,1,5))*Tv2*(1-shifted_defect_top_2),  # defect, average the two
+    Tv_top_2 = insert(tensor_target=tf.ones((scale,scale,1,13),tf_dtype)*Tv0,  # all 13 locations other than the 5 at the bottom
+                      tensor_slice=tf.ones((scale,scale,1,5),tf_dtype)*Tv0*shifted_defect_top_2 +  # no defect
+                      tf.ones((scale,scale,1,5),tf_dtype)*Tv2*(1-shifted_defect_top_2),  # defect, average the two
                       location=connection_index_bottom)  # locations where the bottom 5 should be inserted
 
-    Kn_top_2 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,5))*Kn01,tf.ones((scale,scale,1,8))*Kn02],3),
-                      tensor_slice=tf.concat([tf.ones((scale,scale,1,1))*Kn01,
-                                              tf.ones((scale,scale,1,4))*Kn02],3)*shifted_defect_top_2 +
-                      tf.concat([tf.ones((scale,scale,1,1))*Kn21,
-                                 tf.ones((scale,scale,1,4))*Kn22],3)*(1-shifted_defect_top_2),
+    Kn_top_2 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,5),tf_dtype)*Kn01,tf.ones((scale,scale,1,8),tf_dtype)*Kn02],3),
+                      tensor_slice=tf.concat([tf.ones((scale,scale,1,1),tf_dtype)*Kn01,
+                                              tf.ones((scale,scale,1,4),tf_dtype)*Kn02],3)*shifted_defect_top_2 +
+                      tf.concat([tf.ones((scale,scale,1,1),tf_dtype)*Kn21,
+                                 tf.ones((scale,scale,1,4),tf_dtype)*Kn22],3)*(1-shifted_defect_top_2),
                       location=connection_index_bottom)
 
-    stretch_top_2 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,5))*S01,tf.ones((scale,scale,1,8))*S02],3),
-                           tensor_slice=tf.concat([tf.ones((scale,scale,1,1))*S01,
-                                          tf.ones((scale,scale,1,4))*S02],3)*shifted_defect_top_2 +
-                               tf.concat([tf.ones((scale,scale,1,1))*S21,
-                                          tf.ones((scale,scale,1,4))*S22],3)*(1-shifted_defect_top_2),
+    stretch_top_2 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,5),tf_dtype)*S01,tf.ones((scale,scale,1,8),tf_dtype)*S02],3),
+                           tensor_slice=tf.concat([tf.ones((scale,scale,1,1),tf_dtype)*S01,
+                                          tf.ones((scale,scale,1,4),tf_dtype)*S02],3)*shifted_defect_top_2 +
+                               tf.concat([tf.ones((scale,scale,1,1),tf_dtype)*S21,
+                                          tf.ones((scale,scale,1,4),tf_dtype)*S22],3)*(1-shifted_defect_top_2),
                            location=connection_index_bottom)
 
-    bondsign_top_2 = insert(tensor_target=tf.ones((scale,scale,1,13)),  # all 13 locations other than the 5 at the bottom
-                            tensor_slice=tf.ones((scale,scale,1,5))*shifted_defect_top_2,  # no defect
+    bondsign_top_2 = insert(tensor_target=tf.ones((scale,scale,1,13),tf_dtype),  # all 13 locations other than the 5 at the bottom
+                            tensor_slice=tf.ones((scale,scale,1,5),tf_dtype)*shifted_defect_top_2,  # no defect
                             location=connection_index_bottom)  # locations where the bottom 5 should be inserted
 
     # upper piece surface layer
@@ -171,52 +171,52 @@ def get_const_tensors(scale, dim, defect):
 
     shifted_defect_top_1 = neighbor_shift2d_around(defect) # check whether defects exists around (8 locations)
 
-    Tv_top_1 = insert(tensor_target=tf.concat([(tf.ones((scale,scale,1,8))*Tv0*shifted_defect_top_1 +  # 8 neighbours around
-                                                tf.ones((scale,scale,1,8))*Tv2*(1-shifted_defect_top_1))*defect,
-                                                tf.ones((scale,scale,1,5))*Tv0*defect],3),  # 5 neighbours on top
-                      tensor_slice=tf.ones((scale,scale,1,5))*Tv1*defect,  # 5 neighbours at bottom, all interface
+    Tv_top_1 = insert(tensor_target=tf.concat([(tf.ones((scale,scale,1,8),tf_dtype)*Tv0*shifted_defect_top_1 +  # 8 neighbours around
+                                                tf.ones((scale,scale,1,8),tf_dtype)*Tv2*(1-shifted_defect_top_1))*defect,
+                                                tf.ones((scale,scale,1,5),tf_dtype)*Tv0*defect],3),  # 5 neighbours on top
+                      tensor_slice=tf.ones((scale,scale,1,5),tf_dtype)*Tv1*defect,  # 5 neighbours at bottom, all interface
                       location=connection_index_bottom)
-    Kn_top_1 = insert(tensor_target=tf.concat([(tf.ones((scale,scale,1,8))*Kn01*shifted_defect_top_1 +  # 8 neighbours around
-                                                tf.ones((scale,scale,1,8))*Kn21*(1-shifted_defect_top_1))*defect,
-                                                tf.ones((scale,scale,1,1))*Kn01*defect, # 1 close neighbour on top
-                                                tf.ones((scale,scale,1,4))*Kn02*defect],3), # 4 far neighbours on top
-                      tensor_slice=tf.concat([tf.ones((scale,scale,1,1))*Kn11*defect, # 1 close neighbour at bottom
-                                              tf.ones((scale,scale,1,4))*Kn12*defect],3), # 4 far neighbours at bottom
+    Kn_top_1 = insert(tensor_target=tf.concat([(tf.ones((scale,scale,1,8),tf_dtype)*Kn01*shifted_defect_top_1 +  # 8 neighbours around
+                                                tf.ones((scale,scale,1,8),tf_dtype)*Kn21*(1-shifted_defect_top_1))*defect,
+                                                tf.ones((scale,scale,1,1),tf_dtype)*Kn01*defect, # 1 close neighbour on top
+                                                tf.ones((scale,scale,1,4),tf_dtype)*Kn02*defect],3), # 4 far neighbours on top
+                      tensor_slice=tf.concat([tf.ones((scale,scale,1,1),tf_dtype)*Kn11*defect, # 1 close neighbour at bottom
+                                              tf.ones((scale,scale,1,4),tf_dtype)*Kn12*defect],3), # 4 far neighbours at bottom
                       location=connection_index_bottom)
-    stretch_top_1 = insert(tensor_target=tf.concat([(tf.ones((scale,scale,1,8))*S01*shifted_defect_top_1+
-                                                     tf.ones((scale,scale,1,8))*S21*(1-shifted_defect_top_1))*defect,
-                                                     tf.ones((scale,scale,1,1))*S01*defect,
-                                                     tf.ones((scale,scale,1,4))*S02*defect],3),
-                           tensor_slice=tf.concat([tf.ones((scale,scale,1,1))*S11*defect,
-                                                   tf.ones((scale,scale,1,4))*S12*defect],3),
+    stretch_top_1 = insert(tensor_target=tf.concat([(tf.ones((scale,scale,1,8),tf_dtype)*S01*shifted_defect_top_1+
+                                                     tf.ones((scale,scale,1,8),tf_dtype)*S21*(1-shifted_defect_top_1))*defect,
+                                                     tf.ones((scale,scale,1,1),tf_dtype)*S01*defect,
+                                                     tf.ones((scale,scale,1,4),tf_dtype)*S02*defect],3),
+                           tensor_slice=tf.concat([tf.ones((scale,scale,1,1),tf_dtype)*S11*defect,
+                                                   tf.ones((scale,scale,1,4),tf_dtype)*S12*defect],3),
                            location=connection_index_bottom)
 
-    bondsign_top_1 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,8))*shifted_defect_top_1*defect,   # 8 neighbours around
-                                               tf.ones((scale,scale,1,5))*defect],3),  # 5 neighbours on top
-                      tensor_slice=tf.ones((scale,scale,1,5))*defect,  # 5 neighbours at bottom, all interface
+    bondsign_top_1 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,8),tf_dtype)*shifted_defect_top_1*defect,   # 8 neighbours around
+                                               tf.ones((scale,scale,1,5),tf_dtype)*defect],3),  # 5 neighbours on top
+                      tensor_slice=tf.ones((scale,scale,1,5),tf_dtype)*defect,  # 5 neighbours at bottom, all interface
                       location=connection_index_bottom)
 
     # lower piece surface layer
-    Tv_bottom_1 = insert(tensor_target=tf.ones((scale,scale,1,13))*Tv0,  # 13 neighbours except the ones on top
-                         tensor_slice=tf.ones((scale,scale,1,5))*Tv1*shifted_defect_top_2 +  # 5 neighbours on top
-                                      tf.ones((scale,scale,1,5))*Tv2*(1-shifted_defect_top_2),
+    Tv_bottom_1 = insert(tensor_target=tf.ones((scale,scale,1,13),tf_dtype)*Tv0,  # 13 neighbours except the ones on top
+                         tensor_slice=tf.ones((scale,scale,1,5),tf_dtype)*Tv1*shifted_defect_top_2 +  # 5 neighbours on top
+                                      tf.ones((scale,scale,1,5),tf_dtype)*Tv2*(1-shifted_defect_top_2),
                          location=connection_index_top)
-    Kn_bottom_1 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,5))*Kn01,  # 5 close neighbours except on top
-                                                  tf.ones((scale,scale,1,8))*Kn02],3),  # 8 far neighbours except on top
-                         tensor_slice=tf.concat([tf.ones((scale,scale,1,1))*Kn11,  # 1 close neighbour on top, interface
-                                                 tf.ones((scale,scale,1,4))*Kn12],3)*shifted_defect_top_2 +  # 4 far neighbours on top, interface
-                             tf.concat([tf.ones((scale,scale,1,1))*Kn21,  # 1 close neighbour on top, defect
-                                        tf.ones((scale,scale,1,4))*Kn22],3)*(1-shifted_defect_top_2),  # 4 far neighbours on top, defect
+    Kn_bottom_1 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,5),tf_dtype)*Kn01,  # 5 close neighbours except on top
+                                                  tf.ones((scale,scale,1,8),tf_dtype)*Kn02],3),  # 8 far neighbours except on top
+                         tensor_slice=tf.concat([tf.ones((scale,scale,1,1),tf_dtype)*Kn11,  # 1 close neighbour on top, interface
+                                                 tf.ones((scale,scale,1,4),tf_dtype)*Kn12],3)*shifted_defect_top_2 +  # 4 far neighbours on top, interface
+                             tf.concat([tf.ones((scale,scale,1,1),tf_dtype)*Kn21,  # 1 close neighbour on top, defect
+                                        tf.ones((scale,scale,1,4),tf_dtype)*Kn22],3)*(1-shifted_defect_top_2),  # 4 far neighbours on top, defect
                          location=connection_index_top)
-    stretch_bottom_1 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,5))*S01,
-                                                       tf.ones((scale,scale,1,8))*S02],3),
-                              tensor_slice=tf.concat([tf.ones((scale,scale,1,1))*S11,
-                                                      tf.ones((scale,scale,1,4))*S12],3)*shifted_defect_top_2 +
-                                           tf.concat([tf.ones((scale,scale,1,1))*S21,
-                                                      tf.ones((scale,scale,1,4))*S22],3)*(1-shifted_defect_top_2),
+    stretch_bottom_1 = insert(tensor_target=tf.concat([tf.ones((scale,scale,1,5),tf_dtype)*S01,
+                                                       tf.ones((scale,scale,1,8),tf_dtype)*S02],3),
+                              tensor_slice=tf.concat([tf.ones((scale,scale,1,1),tf_dtype)*S11,
+                                                      tf.ones((scale,scale,1,4),tf_dtype)*S12],3)*shifted_defect_top_2 +
+                                           tf.concat([tf.ones((scale,scale,1,1),tf_dtype)*S21,
+                                                      tf.ones((scale,scale,1,4),tf_dtype)*S22],3)*(1-shifted_defect_top_2),
                               location=connection_index_top)
-    bondsign_bottom_1 = insert(tensor_target=tf.ones((scale,scale,1,13)),  # 13 neighbours except the ones on top
-                               tensor_slice=tf.ones((scale,scale,1,5))*shifted_defect_top_2,  # 5 neighbours on top
+    bondsign_bottom_1 = insert(tensor_target=tf.ones((scale,scale,1,13),tf_dtype),  # 13 neighbours except the ones on top
+                               tensor_slice=tf.ones((scale,scale,1,5),tf_dtype)*shifted_defect_top_2,  # 5 neighbours on top
                                location=connection_index_top)
 
 
@@ -331,11 +331,11 @@ def f2x(distance_new, distance_orig, stretch, bondsign, Tv):
 
     sig1 = tf.sigmoid(beta* (stretch - distance_new))  # 10x10x10x18, sig=0 means crack
     distance_inc = distance_new - distance_orig
-    flag_phase = tf.ones((10,10,10,18))
+    flag_phase = tf.ones((10,10,10,18),tf_dtype)
     dL = bondsign * flag_phase * sig1 * distance_inc # 10x10x10x18
     bondsign_new = bondsign  * flag_phase * (1-sig1) * bondsign ######### Double check on the trasition
     dL += bondsign * (1-flag_phase) * distance_inc # 10x10x10x18
-    sig2 = tf.sigmoid(-beta*distance_inc-0.0) ##########Double check how to handle distance_inc==0
+    sig2 = tf.sigmoid(-beta*distance_inc-1./beta) ##########Double check how to handle distance_inc==0
     dL += (1 - bondsign) * (sig2) * distance_inc
     dL = boundary_correction(tf.expand_dims(dL,4))[:,:,:,0]
     # dL_total = tf.concat([tf.expand_dims(tf.reduce_sum(dL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(dL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
@@ -369,25 +369,25 @@ def apply_bc(Lvel, Lacc, scale):
     Lvel_bottom_x = 0.
     Lvel_bottom_y = 0.
     Lvel_bottom_z = 0.
-    Lvel_bottom = tf.concat([tf.ones((scale, scale, 1, 1)) * Lvel_bottom_x, tf.ones((scale, scale, 1, 1)) * Lvel_bottom_y,
-                             tf.ones((scale, scale, 1, 1)) * Lvel_bottom_z], 3)
+    Lvel_bottom = tf.concat([tf.ones((scale, scale, 1, 1),tf_dtype) * Lvel_bottom_x, tf.ones((scale, scale, 1, 1),tf_dtype) * Lvel_bottom_y,
+                             tf.ones((scale, scale, 1, 1),tf_dtype) * Lvel_bottom_z], 3)
     Lvel_top_x = 0.
     Lvel_top_y = 0.
     Lvel_top_z = -0.5
-    Lvel_top = tf.concat([tf.ones((scale, scale, 1, 1)) * Lvel_top_x, tf.ones((scale, scale, 1, 1)) * Lvel_top_y,
-                          tf.ones((scale, scale, 1, 1)) * Lvel_top_z], 3)
+    Lvel_top = tf.concat([tf.ones((scale, scale, 1, 1),tf_dtype) * Lvel_top_x, tf.ones((scale, scale, 1, 1),tf_dtype) * Lvel_top_y,
+                          tf.ones((scale, scale, 1, 1),tf_dtype) * Lvel_top_z], 3)
     Lvel = tf.concat([Lvel_top, Lvel[:, :, 1:-1, :], Lvel_bottom], 2)
 
     Lacc_bottom_x = 0.
     Lacc_bottom_y = 0.
     Lacc_bottom_z = 0.
-    Lacc_bottom = tf.concat([tf.ones((scale, scale, 1, 1)) * Lacc_bottom_x, tf.ones((scale, scale, 1, 1)) * Lacc_bottom_y,
-                             tf.ones((scale, scale, 1, 1)) * Lacc_bottom_z], 3)
+    Lacc_bottom = tf.concat([tf.ones((scale, scale, 1, 1),tf_dtype) * Lacc_bottom_x, tf.ones((scale, scale, 1, 1),tf_dtype) * Lacc_bottom_y,
+                             tf.ones((scale, scale, 1, 1),tf_dtype) * Lacc_bottom_z], 3)
     Lacc_top_x = 0.
     Lacc_top_y = 0.
     Lacc_top_z = -0.5
-    Lacc_top = tf.concat([tf.ones((scale, scale, 1, 1)) * Lacc_top_x, tf.ones((scale, scale, 1, 1)) * Lacc_top_y,
-                          tf.ones((scale, scale, 1, 1)) * Lacc_top_z], 3)
+    Lacc_top = tf.concat([tf.ones((scale, scale, 1, 1),tf_dtype) * Lacc_top_x, tf.ones((scale, scale, 1, 1),tf_dtype) * Lacc_top_y,
+                          tf.ones((scale, scale, 1, 1),tf_dtype) * Lacc_top_z], 3)
     Lacc = tf.concat([Lacc_top, Lacc[:, :, 1:-1, :], Lacc_bottom], 2)
 
     return Lvel, Lacc
@@ -398,6 +398,7 @@ def apply_bc(Lvel, Lacc, scale):
 
 
 if __name__ == '__main__':
+    tf_dtype = tf.float64
     num_particle_x = num_particle_y = num_particle_z = scale = 10
     ndim = 3  # physical spatial dimension of the problem
     t_step = 1e-9  # time steps of the simulation
@@ -407,15 +408,15 @@ if __name__ == '__main__':
     beta = 1e10 # slop of sigmoid
 
     # Positions = tf.placeholder(tf.float32, (scale, scale, scale, ndim)) # position x
-    grid = np.linspace(0, len, scale)
+    grid = np.linspace(0.0005, 0.0095, scale)#np.linspace(0, len, scale)
     Positions = tf.convert_to_tensor(
         np.asarray([[grid[i], grid[j], grid[k]] for i in range(scale) for j in range(scale) for k in range(scale)]
-                   ).reshape(scale, scale, scale, ndim), dtype=tf.float32)
+                   ).reshape(scale, scale, scale, ndim), dtype=tf_dtype)
 
     # Defect pattern: 1-no defect, 0-defect
     Defects = tf.convert_to_tensor(
         np.asarray([1. for i in range(scale) for j in range(scale)]
-                   ).reshape(scale, scale, 1), dtype=tf.float32)  # Default defect pattern on the bottom surface of the upper piece
+                   ).reshape(scale, scale, 1), dtype=tf_dtype)  # Default defect pattern on the bottom surface of the upper piece
 
     Lvel, Lacc = apply_bc(np.zeros((scale, scale, scale, ndim)), np.zeros((scale, scale, scale, ndim)), scale)
     # Lvel = tf.placeholder(tf.float32, (scale, scale, scale, ndim))  # velocity \dot x
@@ -442,11 +443,13 @@ if __name__ == '__main__':
     init = tf.global_variables_initializer()
     # sess.run(init)
 
+    np.savetxt('Position_pred_{}.txt'.format(0),np.squeeze(sess.run(Positions_old)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
     for step_i in range(steps):
         bondsign_interface = tf.stack([bondsign_old[:,:,4,i] for i in [5,11,13,15,17]])
         bondsign_interface_val = sess.run(bondsign_interface)
 
         Positions_new = Positions_old + Lvel * t_step + Lacc * t_step ** 2 / 2.  # 10x10x10x3
+        np.savetxt('Position_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Positions_new)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
         dxy_new, distance_new = get_distance(Positions_new)
 
         dL, dL_total, TdL_total, bondsign_new, dbg_val_f2x = f2x(distance_new, distance_orig, stretch, bondsign_old, Tv)
@@ -454,7 +457,7 @@ if __name__ == '__main__':
         netF, netF_top, dbg_val_x2f = x2f(Kn, dL, dL_total, Tv, TdL_total, distance_new, dxy_new, bondsign)
 
         Lacc = netF / Mass #10x10x10x3
-        Lvel = Lvel + Lacc * t_step #10x10x10x3
+        Lvel = Lvel + Lacc * t_step /2.0 #10x10x10x3
         Lvel, Lacc = apply_bc(Lvel, Lacc, scale)
 
         # pos_his += [Positions_new]
