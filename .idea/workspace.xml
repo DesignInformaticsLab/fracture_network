@@ -2,78 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96919aee-fcc7-49ef-9052-54204df6e318" name="Default" comment="pay attention to distance change at the starting point.">
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/alloy_mat/Bforce_store.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/alloy_mat/Bforce_store.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/alloy_mat/Lvel_inital.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/alloy_mat/Lvel_inital.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/alloy_mat/Lvel_store.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/alloy_mat/Lvel_store.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/alloy_mat/WB_1200.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/alloy_mat/WB_1200.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/alloy_mat/WB_sm.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/alloy_mat/WB_sm.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/alloy_mat/filter_1000.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/alloy_mat/filter_1000.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/cell.cpp" afterPath="$PROJECT_DIR$/Fracture_Strength/cell_20180630.cpp" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/fracture_val.ipynb" afterPath="$PROJECT_DIR$/Fracture_Strength/fracture_val.ipynb" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/fracture_val.py" afterPath="$PROJECT_DIR$/Fracture_Strength/fracture_val.py" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/fracture_val_conv.py" afterPath="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv.py" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py" afterPath="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/fracture_val_tf.py" afterPath="$PROJECT_DIR$/Fracture_Strength/fracture_val_tf.py" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_1.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_1.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_10.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_10.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_11.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_11.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_12.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_12.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_13.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_13.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_14.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_14.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_15.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_15.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_16.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_16.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_17.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_17.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_18.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_18.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_19.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_19.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_2.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_2.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_20.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_20.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_21.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_21.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_22.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_22.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_23.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_23.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_24.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_24.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_25.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_25.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_26.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_26.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_27.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_27.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_28.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_28.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_29.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_29.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_3.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_3.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_30.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_30.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_4.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_4.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_5.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_5.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_6.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_6.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_7.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_7.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_8.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_8.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Bforce_9.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Bforce_9.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_1.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_1.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_10.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_10.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_11.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_11.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_12.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_12.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_13.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_13.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_14.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_14.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_15.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_15.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_16.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_16.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_17.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_17.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_18.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_18.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_19.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_19.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_2.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_2.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_20.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_20.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_21.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_21.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_22.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_22.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_23.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_23.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_24.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_24.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_25.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_25.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_26.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_26.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_27.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_27.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_28.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_28.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_29.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_29.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_3.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_3.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_30.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_30.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_4.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_4.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_5.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_5.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_6.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_6.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_7.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_7.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_8.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_8.mat" />
-      <change beforePath="$PROJECT_DIR$/Fracture Strength/status/WB_1/Lvel_9.mat" afterPath="$PROJECT_DIR$/Fracture_Strength/status/WB_1/Lvel_9.mat" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py" afterPath="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -93,8 +24,8 @@
       <file leaf-file-name="fracture_val_conv_max.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="459" column="52" lean-forward="true" selection-start-line="459" selection-start-column="52" selection-end-line="459" selection-end-column="52" />
+            <state relative-caret-position="499">
+              <caret line="470" column="69" lean-forward="true" selection-start-line="470" selection-start-column="69" selection-end-line="470" selection-end-column="69" />
               <folding>
                 <element signature="e#136#159#0" expanded="true" />
               </folding>
@@ -102,7 +33,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cell_20180630.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pydevd.py" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="1071" column="0" lean-forward="false" selection-start-line="1071" selection-start-column="0" selection-end-line="1071" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cell_20180630.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Fracture_Strength/cell_20180630.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="793">
@@ -115,8 +66,18 @@
       <file leaf-file-name="fracture_val_conv.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
+            <state relative-caret-position="18">
               <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="session.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/tensorflow/python/client/session.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="1034" column="0" lean-forward="false" selection-start-line="1034" selection-start-column="0" selection-end-line="1034" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -126,11 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bondsign_top_2</find>
-      <find>insert(tensor_target, tensor_slice, location)</find>
-      <find>distance</find>
-      <find>dxyz</find>
-      <find>boundary_correction</find>
       <find>stretchstretch</find>
       <find>sigmoid</find>
       <find>bondsign[i][j]=</find>
@@ -156,6 +112,11 @@
       <find>float32</find>
       <find>tf.zeros</find>
       <find>S02</find>
+      <find>Lacc</find>
+      <find>apply_bc</find>
+      <find>variable</find>
+      <find>vel</find>
+      <find>Lvel</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -171,9 +132,10 @@
         <option value="$PROJECT_DIR$/Fracture Strength/fracture_val.py" />
         <option value="$PROJECT_DIR$/Fracture Strength/cell.cpp" />
         <option value="$PROJECT_DIR$/Fracture Strength/fracture_val_conv_max.py" />
-        <option value="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py" />
         <option value="$PROJECT_DIR$/Fracture_Strength/cell.cpp" />
         <option value="$PROJECT_DIR$/Fracture_Strength/cell_20180630.cpp" />
+        <option value="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -520,6 +482,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-4" width="1857" height="1085" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1693989" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -528,7 +491,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.342827" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1793249" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3586498" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5348101" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -639,7 +602,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py</url>
-          <line>456</line>
+          <line>470</line>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -672,16 +635,46 @@
           <line>132</line>
           <option name="timeStamp" value="76" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py</url>
+          <line>421</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="77" />
+      <option name="time" value="78" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>sess.run(Lvel)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>np.squeeze(sess.run(Lvel))</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>np.squeeze(sess.run(Lvel)).transpose(2, 1, 0, 3)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>apply_bc(np.zeros((scale, scale, scale, ndim)), np.zeros((scale, scale, scale, ndim)), scale)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>tf.Variable(np.zeros((scale, scale, scale, ndim)), tf_dtype)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>sess.run(Lacc[:,:,0,2])</expression-string>
         <language-id>Python</language-id>
@@ -707,45 +700,9 @@
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>sess.run(Lvel[:,:,:,:])</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sess.run(Lacc[:,:,1:,:])</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sess.run(Lacc[:,:,1,:])</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sess.run(Lacc[:,:,0,:])</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/cell_20180630.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12636">
-          <caret line="702" column="9" lean-forward="false" selection-start-line="702" selection-start-column="9" selection-end-line="702" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_tf.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6786">
@@ -1041,14 +998,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="1071" column="0" lean-forward="false" selection-start-line="1071" selection-start-column="0" selection-end-line="1071" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Fracture_Strength/crack_structure_time130000_ct1000.vtk">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-17656">
@@ -1070,14 +1019,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/tensorflow/python/framework/ops.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="129">
@@ -1086,20 +1027,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Fracture_Strength/cell_20180630.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="793">
+          <caret line="1054" column="1" lean-forward="false" selection-start-line="1054" selection-start-column="1" selection-end-line="1054" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="1071" column="0" lean-forward="false" selection-start-line="1071" selection-start-column="0" selection-end-line="1071" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda2/lib/python2.7/site-packages/tensorflow/python/client/session.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="1034" column="0" lean-forward="false" selection-start-line="1034" selection-start-column="0" selection-end-line="1034" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="459" column="52" lean-forward="true" selection-start-line="459" selection-start-column="52" selection-end-line="459" selection-end-column="52" />
+        <state relative-caret-position="499">
+          <caret line="470" column="69" lean-forward="true" selection-start-line="470" selection-start-column="69" selection-end-line="470" selection-end-column="69" />
           <folding>
             <element signature="e#136#159#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/cell_20180630.cpp">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="793">
-          <caret line="1054" column="1" lean-forward="false" selection-start-line="1054" selection-start-column="1" selection-end-line="1054" selection-end-column="1" />
+        <state relative-caret-position="18">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>

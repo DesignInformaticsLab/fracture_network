@@ -373,7 +373,7 @@ def apply_bc(Lvel, Lacc, scale):
                              tf.ones((scale, scale, 1, 1),tf_dtype) * Lvel_bottom_z], 3)
     Lvel_top_x = 0.
     Lvel_top_y = 0.
-    Lvel_top_z = -0.5
+    Lvel_top_z = 0.5
     Lvel_top = tf.concat([tf.ones((scale, scale, 1, 1),tf_dtype) * Lvel_top_x, tf.ones((scale, scale, 1, 1),tf_dtype) * Lvel_top_y,
                           tf.ones((scale, scale, 1, 1),tf_dtype) * Lvel_top_z], 3)
     Lvel = tf.concat([Lvel_top, Lvel[:, :, 1:-1, :], Lvel_bottom], 2)
@@ -418,7 +418,11 @@ if __name__ == '__main__':
         np.asarray([1. for i in range(scale) for j in range(scale)]
                    ).reshape(scale, scale, 1), dtype=tf_dtype)  # Default defect pattern on the bottom surface of the upper piece
 
-    Lvel, Lacc = apply_bc(np.zeros((scale, scale, scale, ndim)), np.zeros((scale, scale, scale, ndim)), scale)
+    # Lvel, Lacc = apply_bc(np.zeros((scale, scale, scale, ndim)), np.zeros((scale, scale, scale, ndim)), scale)
+    Lvel = tf.Variable(np.zeros((scale, scale, scale, ndim)), tf_dtype)
+    Lacc = tf.Variable(np.zeros((scale, scale, scale, ndim)), tf_dtype)
+
+
     # Lvel = tf.placeholder(tf.float32, (scale, scale, scale, ndim))  # velocity \dot x
     # Lacc = tf.placeholder(tf.float32, (scale, scale, scale, ndim))  # accelration \dot \dot x
     # stretch = tf.placeholder(tf.float32, (scale, scale, scale, 3**ndim-9))  # threshold on displacement before crack
@@ -441,15 +445,25 @@ if __name__ == '__main__':
     tfconfig.gpu_options.allow_growth = True
     sess = tf.Session(config=tfconfig)
     init = tf.global_variables_initializer()
-    # sess.run(init)
+    sess.run(init)
 
     np.savetxt('Position_pred_{}.txt'.format(0),np.squeeze(sess.run(Positions_old)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
+    np.savetxt('Lvel_pred_{}.txt'.format(0),np.squeeze(sess.run(Lvel)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
+    np.savetxt('Lacc_pred_{}.txt'.format(0),np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
+    np.savetxt('dL_pred_{}.txt'.format(0), np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
+    np.savetxt('netF_pred_{}.txt'.format(0), np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
     for step_i in range(steps):
         bondsign_interface = tf.stack([bondsign_old[:,:,4,i] for i in [5,11,13,15,17]])
         bondsign_interface_val = sess.run(bondsign_interface)
 
         Positions_new = Positions_old + Lvel * t_step + Lacc * t_step ** 2 / 2.  # 10x10x10x3
+        Lvel = Lvel + Lacc * t_step /2.0 #10x10x10x3
+
         np.savetxt('Position_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Positions_new)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
+        np.savetxt('Lvel_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Lvel)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
+        np.savetxt('Lacc_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
+        np.savetxt('dL_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
+        np.savetxt('netF_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
         dxy_new, distance_new = get_distance(Positions_new)
 
         dL, dL_total, TdL_total, bondsign_new, dbg_val_f2x = f2x(distance_new, distance_orig, stretch, bondsign_old, Tv)
