@@ -450,8 +450,8 @@ if __name__ == '__main__':
     np.savetxt('Position_pred_{}.txt'.format(0),np.squeeze(sess.run(Positions_old)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
     np.savetxt('Lvel_pred_{}.txt'.format(0),np.squeeze(sess.run(Lvel)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
     np.savetxt('Lacc_pred_{}.txt'.format(0),np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
-    np.savetxt('dL_pred_{}.txt'.format(0), np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
-    np.savetxt('netF_pred_{}.txt'.format(0), np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
+    # np.savetxt('dL_pred_{}.txt'.format(0), np.squeeze(sess.run()).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
+    # np.savetxt('netF_pred_{}.txt'.format(0), np.squeeze(sess.run(netF)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
     for step_i in range(steps):
         bondsign_interface = tf.stack([bondsign_old[:,:,4,i] for i in [5,11,13,15,17]])
         bondsign_interface_val = sess.run(bondsign_interface)
@@ -462,13 +462,14 @@ if __name__ == '__main__':
         np.savetxt('Position_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Positions_new)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
         np.savetxt('Lvel_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Lvel)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
         np.savetxt('Lacc_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
-        np.savetxt('dL_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
-        np.savetxt('netF_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(Lacc)).transpose(2, 1, 0, 3).reshape(-1, 3).tolist())
         dxy_new, distance_new = get_distance(Positions_new)
 
         dL, dL_total, TdL_total, bondsign_new, dbg_val_f2x = f2x(distance_new, distance_orig, stretch, bondsign_old, Tv)
+        np.savetxt('dL_total_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(dL_total)).transpose(2, 1, 0).reshape(-1).tolist())
+        np.savetxt('TdL_total_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(dL_total)).transpose(2, 1, 0).reshape(-1).tolist())
 
         netF, netF_top, dbg_val_x2f = x2f(Kn, dL, dL_total, Tv, TdL_total, distance_new, dxy_new, bondsign)
+        np.savetxt('netF_pred_{}.txt'.format(step_i+1), np.squeeze(sess.run(netF)).transpose(2, 1, 0,3).reshape(-1).tolist())
 
         Lacc = netF / Mass #10x10x10x3
         Lvel = Lvel + Lacc * t_step /2.0 #10x10x10x3
