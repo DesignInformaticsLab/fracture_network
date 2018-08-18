@@ -337,7 +337,7 @@ def f2x(distance_new, distance_orig, stretch, bondsign, Tv):
     dL += bondsign * (1-flag_phase) * distance_inc # 10x10x10x18
     sig2 = tf.sigmoid(-beta*distance_inc-1./beta) ##########Double check how to handle distance_inc==0
     dL += (1 - bondsign) * (sig2) * distance_inc
-    dL = boundary_correction(tf.expand_dims(dL,4))[:,:,:,0]
+    dL = boundary_correction(tf.expand_dims(dL,4))[:,:,:,:,0]
     # dL_total = tf.concat([tf.expand_dims(tf.reduce_sum(dL[:, :, :, 6:], 3),3), tf.expand_dims(tf.reduce_sum(dL[:, :, :, :6], 3),3)],3)  # 10x10x10x2
     dL_total = tf.reduce_sum(dL, 3)  # 10x10x10x1
     TdL = dL * Tv
