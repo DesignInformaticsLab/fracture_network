@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96919aee-fcc7-49ef-9052-54204df6e318" name="Default" comment="pay attention to distance change at the starting point.">
-      <change beforePath="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py" afterPath="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Max.py" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py" afterPath="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,14 +21,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="fracture_val_conv_max.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
+      <file leaf-file-name="fracture_val_conv_Hope.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="473" column="0" lean-forward="false" selection-start-line="473" selection-start-column="0" selection-end-line="473" selection-end-column="0" />
+            <state relative-caret-position="493">
+              <caret line="165" column="29" lean-forward="true" selection-start-line="165" selection-start-column="29" selection-end-line="165" selection-end-column="29" />
               <folding>
                 <element signature="e#136#159#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fracture_val.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="428">
+              <caret line="223" column="26" lean-forward="false" selection-start-line="223" selection-start-column="26" selection-end-line="223" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,8 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bondsign[i][j]=</find>
-      <find>omp</find>
       <find>coreNum</find>
       <find>10000</find>
       <find>step</find>
@@ -105,6 +115,8 @@
       <find>Lvel</find>
       <find>dL_total</find>
       <find>dL_pred</find>
+      <find>`</find>
+      <find>beta</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -261,7 +273,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="fracture_network" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -475,11 +487,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23523207" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.342827" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1793249" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.342827" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3850211" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38818565" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4156118" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -588,13 +600,13 @@
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py</url>
+          <url>file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py</url>
           <line>332</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py</url>
-          <line>473</line>
+          <url>file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py</url>
+          <line>474</line>
           <option name="timeStamp" value="81" />
         </line-breakpoint>
       </breakpoints>
@@ -608,52 +620,64 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
+        <expression-string>import seaborn as sns
+import matplotlib.pyplot as plt
+sns.distplot(sess.run(dbg_val_f2x['distance_inc']).reshape(-1))
+plt.show()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>import seaborn as sns
+import matplotlib.pyplot as plt
+sns.distplot(sess.run(dbg_val_f2x['distance_inc']))
+plt.show()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>dL_total</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>dL_pred</expression-string>
+        <expression-string>import seaborn as sns
+sns.distplot(sess.run(dbg_val_f2x)['sig2'].reshape(-1))
+import matplotlib.pyplot as plt
+plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>boundary_correction(tf.expand_dims(dL,4))</expression-string>
+        <expression-string>import seaborn as sns
+sns.distplot(sess.run(dbg_val_f2x)['distance_inc'].reshape(-1))
+import matplotlib.pyplot as plt
+plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>boundary_correction(tf.expand_dims(dL,4))[:,:,:,0]</expression-string>
+        <expression-string>import seaborn as sns
+sns.distplot(sess.run(dbg_val_f2x)['sig1'].reshape(-1))
+import matplotlib.pyplot as plt
+plt.show()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>sess.run(Lvel)</expression-string>
+        <expression-string>import seaborn as sns
+sns.distplot(sess.run(dbg_val_f2x)['sig1'].reshape(-1))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.squeeze(sess.run(Lvel))</expression-string>
+        <expression-string>import seaborn as sns
+sns.distplot(sess.run(dbg_val_f2x)['sig1'])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.squeeze(sess.run(Lvel)).transpose(2, 1, 0, 3)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>apply_bc(np.zeros((scale, scale, scale, ndim)), np.zeros((scale, scale, scale, ndim)), scale)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tf.Variable(np.zeros((scale, scale, scale, ndim)), tf_dtype)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sess.run(Lacc[:,:,0,2])</expression-string>
+        <expression-string>sns.distplot(sess.run(dbg_val_f2x)['sig1'])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -671,6 +695,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -706,7 +731,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
+    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="46" lean-forward="false" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="46" />
@@ -720,6 +745,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -762,7 +788,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
+    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="43" lean-forward="false" selection-start-line="0" selection-start-column="43" selection-end-line="441" selection-end-column="2" />
@@ -783,6 +809,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -818,7 +845,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
+    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="43" lean-forward="false" selection-start-line="0" selection-start-column="43" selection-end-line="441" selection-end-column="2" />
@@ -839,6 +866,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -858,7 +886,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
+    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6624">
           <caret line="368" column="31" lean-forward="false" selection-start-line="368" selection-start-column="31" selection-end-line="368" selection-end-column="31" />
@@ -879,6 +907,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -890,7 +919,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
+    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="9" column="9" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
@@ -912,6 +941,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="190" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="190" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -945,13 +975,6 @@
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1641">
-          <caret line="374" column="23" lean-forward="false" selection-start-line="374" selection-start-column="23" selection-end-line="374" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -1024,13 +1047,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_max.py">
+    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val_conv_Hope.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="473" column="0" lean-forward="false" selection-start-line="473" selection-start-column="0" selection-end-line="473" selection-end-column="0" />
+        <state relative-caret-position="493">
+          <caret line="165" column="29" lean-forward="true" selection-start-line="165" selection-start-column="29" selection-end-line="165" selection-end-column="29" />
           <folding>
             <element signature="e#136#159#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Fracture_Strength/fracture_val.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="223" column="26" lean-forward="false" selection-start-line="223" selection-start-column="26" selection-end-line="223" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
