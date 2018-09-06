@@ -15,4 +15,4 @@ Both forces are influenced by both the material properties and defect patterns o
 the interface. This project investigates the topological design of the interface defects
 that governs the propagation of cracks under pulling, thus achieving high maximal pulling
 force. Please see initial model development
-[here](http://designinformaticslab.github.io/_teaching/designopt/projects/DefectTopology.pdf).
+[here](http://designinformaticslab.github.io/_teaching/designopt/DefectTopology.pdf).
